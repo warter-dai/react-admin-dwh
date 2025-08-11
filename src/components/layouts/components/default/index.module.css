@@ -1,0 +1,17 @@
+.content {
+    margin-left: 10px;
+}
+
+.progress {
+    height: 2px;
+    line-height: 2px;
+    margin: 0;
+    padding: 0;
+    top: -5px;
+    position: absolute;
+    z-index: 999;
+}
+
+.logo {
+    border-bottom: 1px solid var(--ant-color-border);
+}

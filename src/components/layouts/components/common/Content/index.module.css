@@ -1,0 +1,19 @@
+.page-panel,
+.page-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow-y: auto;
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+    }
+
+}
+
+.page-panel {
+    /* margin: 5px 0px;
+    overflow-y: auto; */
+}

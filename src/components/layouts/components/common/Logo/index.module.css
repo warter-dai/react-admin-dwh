@@ -1,0 +1,14 @@
+.logo {
+    display: flex;
+    align-items: center;
+
+    height: 47px;
+    cursor: pointer;
+
+    h2 {
+        margin: 0px;
+        margin-left: 5px;
+        padding: 7px 4px;
+
+    }
+}

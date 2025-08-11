@@ -1,0 +1,68 @@
+@import './assets/style/var.css';
+
+.w-full {
+  width: 100%;
+}
+
+.h-full {
+  height: 100%;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.transition-all {
+  transition-property: all;
+  transition-timing-function: var(--transition-ease, var(--default-transition-timing-function));
+  transition-duration: var(--transition-duration, var(--default-transition-duration));
+}
+
+.overflow-y-auto {
+  overflow-y: auto;
+}
+
+.overflow-x-auto {
+  overflow-x: auto;
+}
+
+.ellipsis {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.disabled,
+.disabled:hover {
+  background-color: var(--disabled-bg-color) !important;
+  color: var(--disabled-color) !important;
+  cursor: not-allowed !important;
+
+  :hover {
+    background-color: var(--disabled-bg-color) !important;
+    color: var(--disabled-color) !important;
+    cursor: not-allowed !important;
+  }
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--ra-scrollbar-thumb-bg);
+  border-radius: 20px;
+}
+
+::-webkit-scrollbar-corner {
+  background: none;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.ant-table-pagination {
+  margin: 2px 10px !important
+}

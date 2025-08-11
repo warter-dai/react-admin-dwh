@@ -1,0 +1,10 @@
+.footer {
+    --footer-hegth: 36px;
+
+    text-align: center;
+    height: var(--footer-hegth);
+    background-color: var(--ant-footer-background-container);
+    line-height: var(--footer-hegth);
+
+    margin-top: 2px;
+}
