@@ -1,6 +1,7 @@
 import { Spin } from "antd";
-import { Fragment, Suspense } from "react";
+import { Fragment, Suspense, useEffect } from "react";
 import type { JSX } from "react";
+import { useNProgress } from "@/components/NProgress";
 
 const LazyLoadComponent = ({
   Component,
@@ -24,6 +25,13 @@ const LazyLoadComponent = ({
       </Fragment>
     );
   };
+
+  const { start, done } = useNProgress();
+  start();
+
+  useEffect(() => {
+    done();
+  });
 
   return (
     <Suspense fallback={fallback()}>

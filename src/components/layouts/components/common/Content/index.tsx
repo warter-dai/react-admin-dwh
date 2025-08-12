@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { Layout } from "antd";
 // import { v4 as uuidV4 } from "uuid";
@@ -7,7 +7,7 @@ import Tabs from "../Tabs";
 import styles from "./index.module.css";
 import { layoutContext } from "./LayoutContext";
 import useGoto from "@/hooks/useGoto";
-import { useNProgress } from "@/components/NProgress";
+
 import useTabsStore from "@/store/useTabsStore";
 import type { TabItemType } from "../Tabs/types";
 import AppFooter from "@/components/layouts/components/common/Footer/index";
@@ -31,13 +31,6 @@ const AppContent = () => {
       go("/redirect" + pathname + search);
     }
   };
-
-  const { start, done } = useNProgress();
-  start();
-
-  useEffect(() => {
-    done();
-  });
 
   // 入场动画
   const animationType: AnimationType = "fadeLeft";

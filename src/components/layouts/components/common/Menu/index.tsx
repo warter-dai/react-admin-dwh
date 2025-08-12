@@ -3,6 +3,7 @@ import type { MenuItem } from "@/types/global";
 import { Menu, type MenuTheme } from "antd";
 import useLayoutMenu from "./useLayoutMenu";
 import { Icon } from "@iconify/react";
+import { Fragment, useEffect, useState } from "react";
 
 export type ItemClickProps = {
   key: string;
@@ -13,13 +14,16 @@ export type ItemClickProps = {
 
 export type MenuProps = {
   theme?: MenuTheme;
-  menuItems?: MenuItem[];
+  // menuItems?: MenuItem[];
   collapsed?: boolean;
+  searchKey?: string;
 };
 
 function AppMenu(props: MenuProps) {
   const { items, openKeys, activeKey } = useMenuStore();
   const { onItemClick, onOpenChange } = useLayoutMenu();
+  const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
+  const [defaultMenuItems, setDefaultMenuItems] = useState<MenuItem[]>([]);
 
   const initMenuList = (menuList: MenuItem[]) => {
     const list = [];
@@ -38,24 +42,57 @@ function AppMenu(props: MenuProps) {
     return list;
   };
 
-  const menuItems = initMenuList(JSON.parse(JSON.stringify(items)));
+  const filterMenus = (searckKey: string, items: MenuItem[]) => {
+    if (!searckKey) return items;
+    const result: MenuItem[] = [];
+    items.forEach((item) => {
+      if (item.label?.toString().includes(searckKey)) {
+        result.push({ ...item });
+      } else if (item.children && item.children.length > 0) {
+        const citem = filterMenus(searckKey, item.children);
+        if (citem.length > 0) {
+          const newItem = { ...item };
+          newItem.children = [...citem];
+          result.push({ ...newItem });
+        }
+      }
+    });
+
+    return result;
+  };
+
+  useEffect(() => {
+    const menuList = initMenuList(JSON.parse(JSON.stringify(items)));
+
+    setDefaultMenuItems(menuList);
+  }, []);
+
+  useEffect(() => {
+    setMenuItems(defaultMenuItems);
+  }, [defaultMenuItems]);
+
+  useEffect(() => {
+    setMenuItems(filterMenus(props.searchKey!, defaultMenuItems));
+  }, [props.searchKey]);
 
   return (
-    <Menu
-      theme={props.theme}
-      className="overflow-y-auto flex-1 h-full"
-      mode="inline"
-      items={menuItems}
-      openKeys={openKeys}
-      selectedKeys={[activeKey]}
-      inlineCollapsed={props.collapsed}
-      onOpenChange={(keys) => {
-        onOpenChange(keys);
-      }}
-      onClick={(event) => {
-        onItemClick(event);
-      }}
-    />
+    <Fragment>
+      <Menu
+        theme={props.theme}
+        className="overflow-y-auto flex-1 h-full"
+        mode="inline"
+        items={menuItems}
+        openKeys={openKeys}
+        selectedKeys={[activeKey]}
+        inlineCollapsed={props.collapsed}
+        onOpenChange={(keys) => {
+          onOpenChange(keys);
+        }}
+        onClick={(event) => {
+          onItemClick(event);
+        }}
+      />
+    </Fragment>
   );
 }
 

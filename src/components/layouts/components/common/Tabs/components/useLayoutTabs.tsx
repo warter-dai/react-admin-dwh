@@ -3,7 +3,7 @@ import type { TabItemType } from "../types";
 import useTabsStore from "@/store/useTabsStore";
 import { useEffect } from "react";
 import useMenuStore from "@/store/useMenuStore";
-import useLayoutMenu from "../../Menu/useLayoutMenu";
+import type { RouteMenuItem } from "@/types/global";
 
 function useLayoutTabs() {
   const { setTabItems, setActiveKey, removeTab, addTab, activeKey, tabItems } =
@@ -11,7 +11,20 @@ function useLayoutTabs() {
   const { items } = useMenuStore();
   const { pathname, search } = useLocation();
   const navigate = useNavigate();
-  const { findMenuItem } = useLayoutMenu();
+
+  // 查找激活对象
+  const findMenuItem = (key: string, items: RouteMenuItem[]) => {
+    for (const item of items) {
+      if (item.key === key) return item;
+      if (item.children && item.children.length > 0) {
+        const it = findMenuItem(key, item.children) as RouteMenuItem | null;
+        if (it) {
+          return it;
+        }
+      }
+    }
+    return null;
+  };
 
   const onActiveTab = (prop: Partial<TabItemType>) => {
     setActiveKey(prop.key!);
@@ -41,7 +54,7 @@ function useLayoutTabs() {
     if (!tabItems[index]) {
       // 路由跳转过来是需要查找菜单查找菜单
       const item = findMenuItem(pathname, items);
-      //
+
       if (!item) return;
       addTab({
         label: item.label,

@@ -10,6 +10,7 @@ function useLayoutMenu() {
 
   const { items, setOpenKeys, setActiveKey } = useMenuStore();
   const tabsStore = useTabsStore();
+  console.log("处理路由变化，更新菜单状态");
 
   // 查找激活对象
   const findMenuItem = (key: string, items: RouteMenuItem[]) => {

@@ -30,9 +30,9 @@ const PageHeader = (props: HeaderPorps) => {
           style={{ width: "auto", padding: 0 }}
         >
           {props.collapsed ? (
-            <MenuFoldOutlined style={{ fontSize: 20 }} />
-          ) : (
             <MenuUnfoldOutlined style={{ fontSize: 20 }} />
+          ) : (
+            <MenuFoldOutlined style={{ fontSize: 20 }} />
           )}
         </Button>
         <Breadcrumb />
