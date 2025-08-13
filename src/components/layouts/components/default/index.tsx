@@ -9,19 +9,39 @@ import {
 import AppContent from "@/components/layouts/components/common/Content";
 import PageHeader from "@/components/layouts/components/common/PageHeader/index";
 import styles from "./index.module.css";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import Logo from "../common/Logo";
 import AppMenu from "../common/Menu";
 import { useSleep } from "@/hooks/useSleep";
+import { request } from "@/utils/http";
+import useMenuStore from "@/store/menuStore";
 
 function DefaultLayout() {
   const { Sider } = Layout;
   const { theme, siderWidth } = useGlobalContext();
   const [collapsed, setCollapsed] = useState(false);
   const [searchKey, setSearchKey] = useState("");
+
+  const { setItems } = useMenuStore();
   const toggleCollapsed = () => {
     setCollapsed(!collapsed);
   };
+
+  const loadUserInfo = async () => {
+    const userinfo: { menus: any[] } = await request(
+      "/react-admin-dwh/data/userinfo.json",
+      {
+        headers: {
+          "Content-Type": "text/plain",
+        },
+      }
+    );
+    setItems(userinfo.menus);
+  };
+
+  useEffect(() => {
+    loadUserInfo();
+  }, []);
 
   const { sleep, clearSleep } = useSleep();
 
@@ -34,6 +54,7 @@ function DefaultLayout() {
   return (
     <Fragment>
       <Layout hasSider className="h-full">
+        {}
         <Sider
           className={styles["sider"]}
           theme={theme}

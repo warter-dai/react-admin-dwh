@@ -1,6 +1,5 @@
-import useMenuStore from "@/store/useMenuStore";
-import useTabsStore from "@/store/useTabsStore";
-import type { RouteMenuItem } from "@/types/global";
+import menuStore from "@/store/menuStore";
+import _tabsStore from "@/store/tabsStore";
 import { useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -8,9 +7,8 @@ function useLayoutMenu() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { items, setOpenKeys, setActiveKey } = useMenuStore();
-  const tabsStore = useTabsStore();
-  console.log("处理路由变化，更新菜单状态");
+  const { items, setOpenKeys, setActiveKey } = menuStore();
+  const tabsStore = _tabsStore();
 
   // 查找激活对象
   const findMenuItem = (key: string, items: RouteMenuItem[]) => {

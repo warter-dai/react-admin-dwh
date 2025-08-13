@@ -1,8 +1,7 @@
-import useMenuStore from "@/store/useMenuStore";
-import type { BreadcrumbItem, RouteMenuItem } from "@/types/global";
+import menuStore from "@/store/menuStore";
 
 function useBreadcrumb() {
-  const { activeKey } = useMenuStore();
+  const { activeKey } = menuStore();
 
   /** 展开菜单节点 */
   const getOpenItems = (items: RouteMenuItem[]) => {

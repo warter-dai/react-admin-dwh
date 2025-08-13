@@ -46,9 +46,14 @@ const BasePage = () => {
 
   const onSearch = () => {
     setDataSource([...dataSource, { key: dataSource.length + 1 }]);
+    loadData();
   };
 
   const [dataSource, setDataSource] = useState<Record<string, any>[]>([]);
+
+  const loadData = async () => {
+    console.log("");
+  };
 
   useEffect(() => {
     const data = [];

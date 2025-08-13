@@ -1,5 +1,3 @@
-import type { IRouteObject } from "../../types/global";
-// import Layout from "@/components/layouts";
 import LazyLoadComponent from "../LazyLoadComponent";
 import { lazy } from "react";
 import AuthLayout from "@/components/layouts/components/AuthLayout";

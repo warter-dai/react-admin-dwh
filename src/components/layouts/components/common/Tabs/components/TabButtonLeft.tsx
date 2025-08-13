@@ -1,6 +1,6 @@
 import { DoubleLeftOutlined } from "@ant-design/icons";
 import styles from "../index.module.css";
-import useTabsStore from "@/store/useTabsStore";
+import useTabsStore from "@/store/tabsStore";
 import useTabsContent from "./hooks/useTabsContent";
 import { useEffect } from "react";
 import { useTabsContext } from "./TabsContext";

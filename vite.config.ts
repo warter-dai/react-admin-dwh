@@ -13,6 +13,7 @@ import type { ConfigEnv, UserConfig } from "vite";
 
 // https://vitejs.dev/config/
 export default ({ mode }: ConfigEnv): UserConfig => {
+  const date = new Date().getTime();
   const root = process.cwd();
   const envConfig = loadEnv(mode, root);
   return defineConfig({
@@ -36,12 +37,14 @@ export default ({ mode }: ConfigEnv): UserConfig => {
       extensions: [".ts", ".tsx", ".js", "jsx"],
     },
     base: envConfig.VITE_PUBLIC_PATH,
+
     server: {
       port: Number(envConfig.VITE_APP_PORT),
       proxy: {
-        "/node-api": {
-          target: "http://localhost:3000",
-          changeOrigin: true,
+        "/openApi": {
+          target: "http://localhost:8082",
+          changeOrigin: true, // 更改请求头中的 Origin，以匹配目标服务器的协议、主机和端口
+          secure: false,
         },
       },
     },
@@ -69,7 +72,7 @@ export default ({ mode }: ConfigEnv): UserConfig => {
             lib: ["zustand"],
             antd: ["antd"],
           },
-          chunkFileNames: "static/js/[name]-[hash].js",
+          chunkFileNames: `static/js/chunkFileName-[name]-${date}.js`,
           entryFileNames: "static/js/[name]-[hash].js",
           assetFileNames: "static/[ext]/[name]-[hash].[ext]",
         },

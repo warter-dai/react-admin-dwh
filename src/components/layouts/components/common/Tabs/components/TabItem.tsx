@@ -2,7 +2,7 @@ import { CloseOutlined } from "@ant-design/icons";
 import { Icon } from "@iconify/react";
 import styles from "../index.module.css";
 import type { TabItemProps } from "../types";
-import useTabsStore from "@/store/useTabsStore";
+import useTabsStore from "@/store/tabsStore";
 import useLayoutTabs from "./useLayoutTabs";
 import TabContextMenu from "./TabContextMenu";
 

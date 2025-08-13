@@ -2,21 +2,17 @@ import { Avatar, Popover } from "antd";
 
 import styles from "./index.module.css";
 
-import useGoto from "@/hooks/useGoto";
 import {
   LogoutOutlined,
   ProfileOutlined,
   UserOutlined,
 } from "@ant-design/icons";
+import useLogin from "@/hooks/useLogin";
 
 const UserCenter = () => {
-  const { go } = useGoto();
+  const { logoutConfirm } = useLogin();
   const handleLogout = async () => {
-    try {
-      go("/login", { replace: true });
-    } catch (error) {
-      console.log(error);
-    }
+    logoutConfirm();
   };
   const content = (
     <div className={styles["user-info-content"]}>
@@ -48,7 +44,7 @@ const UserCenter = () => {
         },
       }}
     >
-      <Avatar size={30} icon={<UserOutlined />} />
+      <Avatar style={{ cursor: "pointer" }} size={30} icon={<UserOutlined />} />
     </Popover>
   );
 };

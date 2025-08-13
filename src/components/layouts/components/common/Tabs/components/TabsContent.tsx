@@ -1,4 +1,4 @@
-import useTabsStore from "@/store/useTabsStore";
+import useTabsStore from "@/store/tabsStore";
 import styles from "../index.module.css";
 import type { TabItemProps } from "../types";
 import useTabsContent from "./hooks/useTabsContent";

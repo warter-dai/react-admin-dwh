@@ -13,7 +13,6 @@ import AppLogo from "@/components/layouts/components/common/Logo";
 import { APP_TITLE } from "@/utils/constants";
 import { useNavigate } from "react-router-dom";
 import Animator from "@/components/Animator";
-import { audio } from "framer-motion/client";
 
 function Login() {
   const remeberMe = useRef(true);

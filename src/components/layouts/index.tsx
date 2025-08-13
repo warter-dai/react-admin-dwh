@@ -1,6 +1,5 @@
 import { type FC } from "react";
 
-import type { LayoutType } from "@/types/global";
 import DefaultLayout from "./components/default";
 
 const layoutComponents: Record<LayoutType, FC> = {

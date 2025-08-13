@@ -3,7 +3,7 @@ import TabButtonLeft from "./TabButtonLeft";
 import TabButtonRight from "./TabButtonRight";
 import styles from "../index.module.css";
 import TabBtns from "./btns";
-import useTabsStore from "@/store/useTabsStore";
+import useTabsStore from "@/store/tabsStore";
 import useTabsContent from "./hooks/useTabsContent";
 import { TabsContext } from "./TabsContext";
 // import { useEffect } from "react";

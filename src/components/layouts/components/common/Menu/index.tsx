@@ -1,5 +1,5 @@
-import useMenuStore from "@/store/useMenuStore";
-import type { MenuItem } from "@/types/global";
+import menuStore from "@/store/menuStore";
+
 import { Menu, type MenuTheme } from "antd";
 import useLayoutMenu from "./useLayoutMenu";
 import { Icon } from "@iconify/react";
@@ -20,7 +20,7 @@ export type MenuProps = {
 };
 
 function AppMenu(props: MenuProps) {
-  const { items, openKeys, activeKey } = useMenuStore();
+  const { items, openKeys, activeKey } = menuStore();
   const { onItemClick, onOpenChange } = useLayoutMenu();
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [defaultMenuItems, setDefaultMenuItems] = useState<MenuItem[]>([]);
@@ -42,10 +42,10 @@ function AppMenu(props: MenuProps) {
     return list;
   };
 
-  const filterMenus = (searckKey: string, items: MenuItem[]) => {
-    if (!searckKey) return items;
+  const filterMenus = (searckKey: string, menuItems: MenuItem[]) => {
+    if (!searckKey) return menuItems;
     const result: MenuItem[] = [];
-    items.forEach((item) => {
+    menuItems.forEach((item) => {
       if (item.label?.toString().includes(searckKey)) {
         result.push({ ...item });
       } else if (item.children && item.children.length > 0) {
@@ -65,7 +65,7 @@ function AppMenu(props: MenuProps) {
     const menuList = initMenuList(JSON.parse(JSON.stringify(items)));
 
     setDefaultMenuItems(menuList);
-  }, []);
+  }, [items]);
 
   useEffect(() => {
     setMenuItems(defaultMenuItems);

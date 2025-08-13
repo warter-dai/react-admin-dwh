@@ -8,13 +8,12 @@ import Animator from "@/components/Animator";
 
 import styles from "./index.module.css";
 import { Icon } from "@iconify/react";
-import type { BreadcrumbItem } from "@/types/global";
-import useMenuStore from "@/store/useMenuStore";
-import useBreadcrumb from "./useBreadcrumb";
+import menuStore from "@/store/menuStore";
+import breadcrumb from "./useBreadcrumb";
 
 const PageBreadcrumb = () => {
-  const { items } = useMenuStore();
-  const { getOpenItems } = useBreadcrumb();
+  const { items } = menuStore();
+  const { getOpenItems } = breadcrumb();
 
   const visibleItems: BreadcrumbItem[] = getOpenItems(items);
 

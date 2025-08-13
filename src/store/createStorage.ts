@@ -1,4 +1,12 @@
-export type storeageKey = "openKeys" | "activeKey" | "tabs";
+export type storeageKey =
+  | "openKeys"
+  | "activeKey"
+  | "tabs"
+  | "token"
+  | "rememberMe"
+  | "userInfo"
+  | "roleRouters"
+  | "language";
 
 // 获取传入的值的类型
 const getValueType = (value: any) => {

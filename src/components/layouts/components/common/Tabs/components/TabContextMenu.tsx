@@ -3,7 +3,7 @@ import { useState } from "react";
 import type { TabItemType } from "../types";
 import styles from "../index.module.css";
 import { LineOutlined, ReloadOutlined, TagOutlined } from "@ant-design/icons";
-import useTabsStore from "@/store/useTabsStore";
+import useTabsStore from "@/store/tabsStore";
 import { useLayoutContext } from "../../Content/LayoutContext";
 
 export type TabContextMenuProps = {

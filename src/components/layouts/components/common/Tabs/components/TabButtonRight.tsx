@@ -3,7 +3,7 @@ import styles from "../index.module.css";
 import useTabsContent from "./hooks/useTabsContent";
 import { useEffect } from "react";
 import { useTabsContext } from "./TabsContext";
-import useTabsStore from "@/store/useTabsStore";
+import useTabsStore from "@/store/tabsStore";
 
 function TabButtonRight() {
   const { activeKey } = useTabsStore();

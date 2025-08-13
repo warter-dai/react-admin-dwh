@@ -1,9 +1,8 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import type { TabItemType } from "../types";
-import useTabsStore from "@/store/useTabsStore";
+import useTabsStore from "@/store/tabsStore";
 import { useEffect } from "react";
-import useMenuStore from "@/store/useMenuStore";
-import type { RouteMenuItem } from "@/types/global";
+import useMenuStore from "@/store/menuStore";
 
 function useLayoutTabs() {
   const { setTabItems, setActiveKey, removeTab, addTab, activeKey, tabItems } =
