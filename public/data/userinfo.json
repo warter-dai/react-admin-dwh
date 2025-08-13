@@ -1,7 +1,13 @@
 {
   "code": "200",
+  "msg": "验证已过期，请重新登录",
   "result": {
-    "userName": "admin",
+    "userInfo": {
+      "userName": "admin",
+      "email": "380169786@qq.com",
+      "phone": "13800138000",
+      "picture": "xxx"
+    },
     "menus": [
       {
         "label": "关于",

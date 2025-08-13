@@ -15,6 +15,7 @@ import AppMenu from "../common/Menu";
 import { useSleep } from "@/hooks/useSleep";
 import { request } from "@/utils/http";
 import useMenuStore from "@/store/menuStore";
+import useUserStore from "@/store/userStore";
 
 function DefaultLayout() {
   const { Sider } = Layout;
@@ -23,12 +24,13 @@ function DefaultLayout() {
   const [searchKey, setSearchKey] = useState("");
 
   const { setItems } = useMenuStore();
+  const { setUserInfo } = useUserStore();
   const toggleCollapsed = () => {
     setCollapsed(!collapsed);
   };
 
   const loadUserInfo = async () => {
-    const userinfo: { menus: any[] } = await request(
+    const userinfo: { menus: any[]; userInfo: any } = await request(
       "/react-admin-dwh/data/userinfo.json",
       {
         headers: {
@@ -37,6 +39,7 @@ function DefaultLayout() {
       }
     );
     setItems(userinfo.menus);
+    setUserInfo(userinfo.userInfo);
   };
 
   useEffect(() => {

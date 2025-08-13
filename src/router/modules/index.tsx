@@ -44,6 +44,30 @@ export const constantRouterMap: IRouteObject[] = [
     ],
   },
   {
+    path: "/personal",
+    element: <AuthLayout />,
+    meta: {
+      menu: false,
+    },
+    children: [
+      {
+        index: true,
+        element: <RedirectRoute to="/personal/center"></RedirectRoute>,
+      },
+      {
+        path: "/personal/center",
+        element: (
+          <LazyLoadComponent
+            Component={lazy(() => import("@/views/system/personal"))}
+          />
+        ),
+        meta: {
+          title: "center",
+        },
+      },
+    ],
+  },
+  {
     path: "/",
     element: <AuthLayout />,
 

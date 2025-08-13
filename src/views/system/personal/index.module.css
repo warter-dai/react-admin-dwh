@@ -1,0 +1,18 @@
+.personal-panel {
+    display: flex;
+    gap: 20px;
+    align-items: baseline;
+    justify-content: center;
+    margin: 30px 10px;
+}
+
+.info-panel,
+.base-panel {
+    flex: 1;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}

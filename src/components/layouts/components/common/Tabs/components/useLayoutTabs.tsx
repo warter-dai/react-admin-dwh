@@ -54,7 +54,10 @@ function useLayoutTabs() {
       // 路由跳转过来是需要查找菜单查找菜单
       const item = findMenuItem(pathname, items);
 
-      if (!item) return;
+      if (!item) {
+        setActiveKey("");
+        return;
+      }
       addTab({
         label: item.label,
         key: item.key.toString(),
@@ -74,7 +77,15 @@ function useLayoutTabs() {
     initTabs();
   }, []);
 
-  // useEffect(() => {}, [pathname + search]);
+  useEffect(() => {
+    // 路由跳转过来是需要查找菜单查找菜单
+    const item = findMenuItem(pathname, items);
+
+    if (!item) {
+      setActiveKey("");
+      return;
+    }
+  }, [pathname + search]);
 
   return {
     onActiveTab,

@@ -8,15 +8,24 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import useLogin from "@/hooks/useLogin";
+import useUserStore from "@/store/userStore";
+import { useNavigate } from "react-router-dom";
 
-const UserCenter = () => {
+const UserInfo = () => {
   const { logoutConfirm } = useLogin();
+  const { userInfo } = useUserStore();
+  const nav = useNavigate();
   const handleLogout = async () => {
     logoutConfirm();
   };
+
+  const goToUserInfo = () => {
+    nav("/personal/center");
+  };
+
   const content = (
     <div className={styles["user-info-content"]}>
-      <div className={styles["user-info-item"]}>
+      <div className={styles["user-info-item"]} onClick={goToUserInfo}>
         <span className="flex">
           <ProfileOutlined style={{ fontSize: 16 }} />
           <span style={{ marginLeft: 6 }}>个人中心</span>
@@ -44,9 +53,20 @@ const UserCenter = () => {
         },
       }}
     >
-      <Avatar style={{ cursor: "pointer" }} size={30} icon={<UserOutlined />} />
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          fontSize: "16px",
+          cursor: "pointer",
+        }}
+      >
+        <Avatar size={30} icon={<UserOutlined />} />
+        <span style={{ paddingLeft: "5px" }}>{userInfo?.userName}</span>
+      </div>
     </Popover>
   );
 };
 
-export default UserCenter;
+export default UserInfo;

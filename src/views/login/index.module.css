@@ -116,3 +116,11 @@
             }
         }
     }
+
+    .qrcode {
+        display: flex;
+        align-items: center;
+        height: 467px;
+        justify-content: center;
+        flex-direction: column;
+    }

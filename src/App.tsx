@@ -7,6 +7,7 @@ import router from "@/router/index";
 import { addCollection } from "@iconify/react";
 import { icons as antdIcons } from "@iconify-json/ant-design";
 import "@ant-design/v5-patch-for-react-19";
+import HttpInterceptor from "./utils/http/HttpInterceptor";
 
 addCollection(antdIcons);
 
@@ -16,6 +17,7 @@ import { useRef } from "react";
 function App() {
   const theme = "light";
   const { antdLanguage } = useI18n();
+
   return (
     <GlobalContext.Provider
       value={{
@@ -54,7 +56,9 @@ function App() {
         }}
       >
         <AntApp className="w-full h-full">
-          <RouterProvider router={router} />
+          <HttpInterceptor>
+            <RouterProvider router={router} />
+          </HttpInterceptor>
         </AntApp>
         {/* <LockScreen /> */}
       </ConfigProvider>

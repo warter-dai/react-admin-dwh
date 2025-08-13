@@ -1,8 +1,5 @@
-import { HTTP_SUCCESS_CODE } from "@/utils/constants";
 import axios, {
-  AxiosError,
   type AxiosInstance,
-  type AxiosResponse,
   type InternalAxiosRequestConfig,
 } from "axios";
 import {
@@ -12,11 +9,11 @@ import {
 } from "./config";
 
 import { REQUEST_TIMEOUT, API_BASE_PATH } from "@/utils/constants";
-import { App } from "antd";
+// import { App } from "antd";
 
 const abortControllerMap: Map<string, AbortController> = new Map();
 
-const axiosInstance: AxiosInstance = axios.create({
+export const axiosInstance: AxiosInstance = axios.create({
   timeout: REQUEST_TIMEOUT,
   baseURL: API_BASE_PATH,
 });
@@ -29,26 +26,26 @@ axiosInstance.interceptors.request.use((res: InternalAxiosRequestConfig) => {
   return res;
 });
 
-axiosInstance.interceptors.response.use(
-  (response: AxiosResponse) => {
-    const url = response.config.url || "";
-    abortControllerMap.delete(url);
-    if (response?.config?.responseType === "blob") {
-      // 文件流
-      return response;
-    } else if (response.data.code === HTTP_SUCCESS_CODE) {
-      return response.data.result;
-    } else {
-      const { message } = App.useApp();
-      message.error(response.data.error);
-    }
-  },
-  (error: AxiosError) => {
-    const { modal } = App.useApp();
-    modal.error({ content: error.message });
-    return Promise.reject(error);
-  }
-);
+// axiosInstance.interceptors.response.use(
+//   (response: AxiosResponse) => {
+//     const url = response.config.url || "";
+//     abortControllerMap.delete(url);
+//     if (response?.config?.responseType === "blob") {
+//       // 文件流
+//       return response;
+//     } else if (response.data.code === HTTP_SUCCESS_CODE) {
+//       return response.data.result;
+//     } else {
+//       const { message } = App.useApp();
+//       message.error(response.data.result.msg || response.data.msg);
+//     }
+//   },
+//   (error: AxiosError) => {
+//     const { modal } = App.useApp();
+//     modal.error({ content: error.message });
+//     return Promise.reject(error);
+//   }
+// );
 
 axiosInstance.interceptors.request.use(defaultRequestInterceptors);
 // axiosInstance.interceptors.response.use(defaultResponseInterceptors);

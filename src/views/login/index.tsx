@@ -1,27 +1,44 @@
-import { Button, Divider, Form, Input, type FormInstance } from "antd";
+import {
+  Button,
+  Divider,
+  Form,
+  Input,
+  QRCode,
+  Tabs,
+  type FormInstance,
+} from "antd";
 import styles from "./index.module.css";
-import { Checkbox } from "antd/lib";
+import { Checkbox } from "antd";
 import {
   AlipayCircleOutlined,
   GithubOutlined,
   WechatOutlined,
   WeiboOutlined,
 } from "@ant-design/icons";
-import { useEffect, useRef } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import AppLogo from "@/components/layouts/components/common/Logo";
 
 import { APP_TITLE } from "@/utils/constants";
 import { useNavigate } from "react-router-dom";
 import Animator from "@/components/Animator";
+import { useSleep } from "@/hooks/useSleep";
+import useUserStore from "@/store/userStore";
 
 function Login() {
-  const remeberMe = useRef(true);
   const formRef = useRef<FormInstance>(null);
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    formRef.current?.setFieldsValue({ username: "admin", password: "admin" });
-  });
+  const navigate = useNavigate();
+  const { rememberMe, setRememberMe } = useUserStore();
+  const { sleep, clearSleep } = useSleep();
+  const qrCodeTimeSpan = 2 * 60 * 1000;
+
+  const [qrcodeStatus, setQrcodeStatus] = useState<
+    "active" | "expired" | "loading" | "scanned"
+  >("active");
+
+  const initQrcode = () => {
+    return new Date().getTime() + "";
+  };
 
   const onFinish = (values: any) => {
     console.log("Success:", values);
@@ -31,49 +48,12 @@ function Login() {
     console.log("Failed:", errorInfo);
   };
 
-  const onLogin = async () => {
-    try {
-      await formRef.current?.validateFields();
-      navigate("/");
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  return (
-    <div className={styles["login-panel"]}>
-      <div className={styles["login-logo"]}>
-        <AppLogo style={{ fontSize: 40 }}></AppLogo>
-        {APP_TITLE}
-      </div>
-      <Animator
-        style={{ display: "flex", flex: 1 }}
-        config={{
-          type: "fadeLeft",
-          duration: 0.4,
-        }}
-      >
-        <div className={styles["login-left"]}>
-          <div className={styles["header"]}>
-            <div className={styles["login-content-logo"]}>
-              <AppLogo style={{ fontSize: 40 }}></AppLogo>
-              {APP_TITLE}
-            </div>
-          </div>
-          <div className={styles["content"]}>
-            <h1>欢迎使用</h1>
-            <h4>开箱即用</h4>
-          </div>
-        </div>
-      </Animator>
-      <Animator
-        style={{ display: "flex", flex: 1, height: "audio" }}
-        config={{
-          type: "fadeRight",
-          duration: 0.4,
-        }}
-      >
-        <div className={styles["login-content"]}>
+  const tabsItems = [
+    {
+      label: "密码登录",
+      key: "password",
+      children: (
+        <Fragment>
           <h1 className={styles["login-title"]}>登录</h1>
           <div>
             <Form
@@ -100,11 +80,13 @@ function Login() {
               >
                 <Input.Password />
               </Form.Item>
-              <Form.Item>
+              <Form.Item name="remember">
                 <div className={styles["forget"]}>
                   <Checkbox
-                    checked={remeberMe.current}
-                    title="勾选后自动记录登录信息"
+                    checked={rememberMe}
+                    onChange={(e) => {
+                      setRememberMe(e.target.checked);
+                    }}
                   >
                     记住我
                   </Checkbox>
@@ -136,6 +118,101 @@ function Login() {
               </Form.Item>
             </Form>
           </div>
+        </Fragment>
+      ),
+    },
+    {
+      label: "扫码登录",
+      key: "qrcode",
+      children: (
+        <Fragment>
+          <div className={styles["qrcode"]}>
+            <QRCode
+              size={300}
+              value={initQrcode()}
+              status={qrcodeStatus}
+              onRefresh={() => onQrCodeRefresh()}
+            ></QRCode>
+            扫描二维码后，点击确定即可登录成功
+          </div>
+        </Fragment>
+      ),
+    },
+  ];
+
+  useEffect(() => {
+    formRef.current?.setFieldsValue({
+      username: "admin",
+      password: "admin",
+      // remember: rememberMe,
+    });
+  }, []);
+
+  const onLogin = async () => {
+    try {
+      await formRef.current?.validateFields();
+
+      navigate("/");
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const onQrCodeRefresh = () => {
+    setQrcodeStatus("active");
+    qrcodeStatusTimer();
+  };
+
+  const qrcodeStatusTimer = async () => {
+    clearSleep();
+    await sleep(qrCodeTimeSpan);
+    setQrcodeStatus("expired");
+  };
+
+  const onTabChange = (activeKey: string) => {
+    if (activeKey !== "qrcode") return;
+    onQrCodeRefresh();
+  };
+
+  return (
+    <div className={styles["login-panel"]}>
+      <div className={styles["login-logo"]}>
+        <AppLogo style={{ fontSize: 40 }}></AppLogo>
+        {APP_TITLE}
+      </div>
+      <Animator
+        style={{ display: "flex", flex: 1 }}
+        config={{
+          type: "fadeLeft",
+          duration: 0.4,
+        }}
+      >
+        <div className={styles["login-left"]}>
+          <div className={styles["header"]}>
+            <div className={styles["login-content-logo"]}>
+              <AppLogo style={{ fontSize: 40 }}></AppLogo>
+              {APP_TITLE}
+            </div>
+          </div>
+          <div className={styles["content"]}>
+            <h1>欢迎使用</h1>
+            <h4>技术栈：vite、react、react-router、antd5、zustand</h4>
+          </div>
+        </div>
+      </Animator>
+      <Animator
+        style={{ display: "flex", flex: 1, height: "audio" }}
+        config={{
+          type: "fadeRight",
+          duration: 0.4,
+        }}
+      >
+        <div className={styles["login-content"]}>
+          <Tabs
+            items={tabsItems}
+            defaultActiveKey="password"
+            onChange={onTabChange}
+          ></Tabs>
         </div>
       </Animator>
     </div>
