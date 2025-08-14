@@ -1,15 +1,12 @@
-import { useLocation, useNavigate } from "react-router-dom";
-import type { TabItemType } from "../types";
+import { useLocation } from "react-router-dom";
 import useTabsStore from "@/store/tabsStore";
 import { useEffect } from "react";
 import useMenuStore from "@/store/menuStore";
 
 function useLayoutTabs() {
-  const { setTabItems, setActiveKey, removeTab, addTab, activeKey, tabItems } =
-    useTabsStore();
+  const { setTabItems, setActiveKey, addTab, tabItems } = useTabsStore();
   const { items } = useMenuStore();
   const { pathname, search } = useLocation();
-  const navigate = useNavigate();
 
   // 查找激活对象
   const findMenuItem = (key: string, items: RouteMenuItem[]) => {
@@ -23,25 +20,6 @@ function useLayoutTabs() {
       }
     }
     return null;
-  };
-
-  const onActiveTab = (prop: Partial<TabItemType>) => {
-    setActiveKey(prop.key!);
-    const item = tabItems.find((item) => {
-      return item.key === prop.key;
-    });
-    if (!item) return;
-    navigate(item.path!);
-  };
-
-  const onRemove = (prop: Partial<TabItemType>) => {
-    removeTab(prop.key || "");
-
-    const item = tabItems.find((item) => {
-      return item.key === activeKey;
-    });
-    if (!item) return;
-    navigate(item.path!);
   };
 
   const initTabs = () => {
@@ -74,22 +52,22 @@ function useLayoutTabs() {
   };
 
   useEffect(() => {
+    if (!items || items.length === 0) return;
+
     initTabs();
-  }, []);
+  }, [items]);
 
   useEffect(() => {
-    // 路由跳转过来是需要查找菜单查找菜单
-    const item = findMenuItem(pathname, items);
+    setActiveKey("");
+    // 查找tab信息，url更新时同步路径信息
+    const index = tabItems.findIndex((item) => {
+      return item.key === pathname;
+    });
 
-    if (!item) {
-      setActiveKey("");
+    if (index < 0) {
       return;
     }
+    setActiveKey(pathname);
   }, [pathname + search]);
-
-  return {
-    onActiveTab,
-    onRemove,
-  };
 }
 export default useLayoutTabs;

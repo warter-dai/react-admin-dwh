@@ -62,6 +62,7 @@ function useLayoutMenu() {
     if (!items?.length) return;
 
     const currentPath = location.pathname;
+
     setActiveKey(currentPath);
   }, [location.pathname, items]);
 

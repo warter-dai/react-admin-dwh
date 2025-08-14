@@ -1,0 +1,92 @@
+.chatroom-panel {
+    display: flex;
+    height: 100%;
+    overflow: hidden;
+
+    .user-list {
+        width: 300px;
+        margin: 0 10px;
+        overflow-y: auto;
+        border: 1px solid #ccc;
+
+        .select-item {
+            box-shadow: 0 1px 2px -2px rgba(0, 0, 0, 0.16), 0 3px 6px 0 rgba(0, 0, 0, 0.12), 0 5px 12px 4px rgba(0, 0, 0, 0.09);
+            font-weight: bold;
+        }
+
+        .user-item {
+            display: flex;
+            width: 280;
+            margin: 10px;
+            cursor: pointer;
+
+            .user-name {
+                margin-left: 10px;
+            }
+        }
+    }
+
+    .chatroom-msage-panel {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+
+        .msg {
+            margin-bottom: 5px;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            flex: 1;
+
+            .user-msg {
+                display: flex;
+                align-items: center;
+                height: 40px;
+                margin: 10px 5px;
+
+                .user-msg-content {
+                    display: flex;
+                    align-items: center;
+
+                    .arrow {
+                        width: 0;
+                        height: 0;
+                        border-top: 5px solid transparent;
+                        border-bottom: 5px solid transparent;
+                    }
+
+                    .left {
+                        border-left: 10px solid #ccc;
+                    }
+
+                    .right {
+                        border-right: 10px solid #ccc;
+                    }
+
+                    .content {
+                        padding: 0 10px;
+                        border: 1px solid #ccc;
+                        border-radius: 10px;
+                        flex: 1;
+                    }
+                }
+            }
+
+            .admin {
+
+                justify-content: end;
+            }
+
+            .client {}
+        }
+
+        .send {
+            height: 100px;
+        }
+
+        .btns {
+            height: 30px;
+            padding-right: 10px;
+            text-align: right;
+        }
+    }
+}

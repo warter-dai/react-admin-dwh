@@ -27,6 +27,35 @@ const asyncRoutes = initRoutes();
 
 export const constantRouterMap: IRouteObject[] = [
   {
+    path: "/todu",
+    element: <AuthLayout />,
+    meta: {
+      menu: false,
+    },
+    children: [
+      {
+        index: true,
+        element: <RedirectRoute to="/todu/chatroom"></RedirectRoute>,
+      },
+      {
+        path: "/todu/chatroom",
+        element: (
+          <LazyLoadComponent
+            Component={lazy(() => import("@/views/ChatRoom/index"))}
+          />
+        ),
+      },
+      {
+        path: "/todu/chatroom/:id",
+        element: (
+          <LazyLoadComponent
+            Component={lazy(() => import("@/views/ChatRoom/box"))}
+          />
+        ),
+      },
+    ],
+  },
+  {
     path: "/redirect",
     element: <AuthLayout />,
     meta: {

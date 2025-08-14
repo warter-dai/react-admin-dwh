@@ -7,16 +7,15 @@ import useTabsStore from "@/store/tabsStore";
 
 function TabButtonRight() {
   const { activeKey } = useTabsStore();
+  const { _tabScrollRef } = useTabsContext();
   const { tabScrollRef, scrollLeft } = useTabsContent({
     sleepSpan: 200,
     activeKey: activeKey,
   });
 
-  const { _tabScrollRef } = useTabsContext();
-
   useEffect(() => {
     tabScrollRef!.current = _tabScrollRef!.current;
-  }, [_tabScrollRef]);
+  }, [_tabScrollRef?.current]);
 
   const onScrollRight = () => {
     scrollLeft();

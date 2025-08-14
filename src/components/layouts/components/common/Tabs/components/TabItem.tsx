@@ -1,16 +1,29 @@
 import { CloseOutlined } from "@ant-design/icons";
 import { Icon } from "@iconify/react";
 import styles from "../index.module.css";
-import type { TabItemProps } from "../types";
+import type { TabItemProps, TabItemType } from "../types";
 import useTabsStore from "@/store/tabsStore";
-import useLayoutTabs from "./useLayoutTabs";
 import TabContextMenu from "./TabContextMenu";
+import { useNavigate } from "react-router-dom";
 
 function TabItem(
   prop: Partial<Omit<TabItemProps, "key">> & { data?: Partial<TabItemProps> }
 ) {
-  const { activeKey } = useTabsStore();
-  const { onActiveTab, onRemove } = useLayoutTabs();
+  const { activeKey, setActiveKey, tabItems, removeTab } = useTabsStore();
+  const navigate = useNavigate();
+
+  const onActiveTab = (prop: Partial<TabItemType>) => {
+    setActiveKey(prop.key!);
+    const item = tabItems.find((item) => {
+      return item.key === prop.key;
+    });
+    if (!item) return;
+    navigate(item.path!);
+  };
+
+  const onRemove = (prop: Partial<TabItemType>) => {
+    removeTab(prop.key || "");
+  };
 
   return (
     <TabContextMenu
@@ -19,9 +32,12 @@ function TabItem(
     >
       <div
         data-tab-key={prop.data?.key}
+        onClick={() => {
+          onActiveTab(prop.data!);
+        }}
         className={
           styles["tab-item"] +
-          " cursor-pointer " +
+          " cursor-pointer no-select " +
           (activeKey === prop.data?.key ? styles["tab-item-active"] : "")
         }
       >
@@ -32,12 +48,7 @@ function TabItem(
             prop.data!.icon || null
           )}
         </div>
-        <div
-          onClick={() => {
-            onActiveTab(prop.data!);
-          }}
-          className={styles["tab-item-label"] + " ellipsis"}
-        >
+        <div className={styles["tab-item-label"] + " ellipsis"}>
           {prop.data!.label}
         </div>
         {prop.closable && !prop.isLasTab ? (

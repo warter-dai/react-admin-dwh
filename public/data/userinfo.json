@@ -54,6 +54,18 @@
             "key": "/workspace",
             "path": "/workspace",
             "icon": "ant-design:container"
+          },
+          {
+            "label": "聊天室",
+            "key": "/todu/chatroom",
+            "path": "/todu/chatroom",
+            "icon": "ant-design:container"
+          },
+          {
+            "label": "聊天室1",
+            "key": "/todu/chatroom/1",
+            "path": "/todu/chatroom/1",
+            "icon": "ant-design:container"
           }
         ]
       },

@@ -15,7 +15,7 @@ interface TabsState {
 const storage = createStorage("localStorage");
 
 const useTabsStore = create<TabsState>()((set) => ({
-  activeKey: storage.getStorage<string>("activeKey"),
+  activeKey: "",
   setActiveKey: (key: string) => {
     storage.setStorage("activeKey", key);
     set(() => {

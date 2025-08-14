@@ -26,7 +26,7 @@ function useLogin() {
 
   const reset = () => {
     setToken("");
-    setUserInfo({});
+    setUserInfo();
     setRoleRouters([]);
     navigate("/login", { replace: true });
   };

@@ -16,7 +16,7 @@ function TabButtonLeft() {
 
   useEffect(() => {
     tabScrollRef!.current = _tabScrollRef!.current;
-  }, [_tabScrollRef]);
+  }, [_tabScrollRef?.current]);
 
   const onScrollLeft = () => {
     scrollRight();

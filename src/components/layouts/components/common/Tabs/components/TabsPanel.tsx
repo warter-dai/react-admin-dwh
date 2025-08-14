@@ -6,7 +6,9 @@ import TabBtns from "./btns";
 import useTabsStore from "@/store/tabsStore";
 import useTabsContent from "./hooks/useTabsContent";
 import { TabsContext } from "./TabsContext";
-// import { useEffect } from "react";
+import useLayoutTabs from "./useLayoutTabs";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function TabsPanel() {
   const { tabItems } = useTabsStore();
@@ -15,6 +17,18 @@ function TabsPanel() {
     sleepSpan: 200,
     activeKey: activeKey,
   });
+
+  useLayoutTabs();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const item = tabItems.find((item) => {
+      return item.key === activeKey;
+    });
+    if (!item) return;
+    // debugger;
+    navigate(item.path!);
+  }, [activeKey]);
 
   return (
     <TabsContext.Provider

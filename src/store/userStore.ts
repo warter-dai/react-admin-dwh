@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { createStorage } from "./createStorage";
 import { TOKE_KEY } from "@/utils/constants";
 
-type UserInfoType = {
+export type UserInfoType = {
   userName?: string;
   email: string;
   phone: string;
@@ -20,7 +20,7 @@ export type UserState = {
   rememberMe: boolean;
   setToken: (token: string) => void;
   setRememberMe: (rememberMe: boolean) => void;
-  setUserInfo: (userInfo: UserInfoType) => void;
+  setUserInfo: (userInfo?: UserInfoType) => void;
   setRoleRouters: (roleRouters: RouteMenuItem[]) => void;
 };
 
@@ -45,9 +45,9 @@ const useUserStore = create<UserState>()((set) => ({
       return { rememberMe: rememberMe };
     });
   },
-  setUserInfo: (userInfo: UserInfoType) => {
+  setUserInfo: (userInfo?: UserInfoType) => {
     set(() => {
-      storage.setStorage("userInfo", userInfo);
+      storage.setStorage("userInfo", userInfo ?? {});
       return { userInfo: userInfo };
     });
   },
