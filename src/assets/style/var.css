@@ -16,4 +16,8 @@
   --menu-drop-color: #409eff;
   --disabled-bg-color: #f5f5f5;
   --disabled-color: #00000040;
+  --tabs-panel-height: 35px;
+  /* --tabs-item-background-color-hover: #ccc; */
+  --tabs-item-color-hover: #fff;
+  --tabs-item-bg-color-primary: #409eff;
 }

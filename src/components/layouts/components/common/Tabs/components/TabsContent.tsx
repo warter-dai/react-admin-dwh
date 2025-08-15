@@ -3,7 +3,7 @@ import styles from "../index.module.css";
 import type { TabItemProps } from "../types";
 import useTabsContent from "./hooks/useTabsContent";
 import TableItem from "./TabItem";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTabsContext } from "./TabsContext";
 
 export type TabsContentProps = {
@@ -22,6 +22,8 @@ function TabsContent({ tabItems }: TabsContentProps) {
 
   const [dragging, setDragging] = useState(false);
 
+  const diraggLine = useRef<HTMLDivElement>(null);
+
   const onDragStart = (
     event: React.DragEvent<HTMLDivElement>,
     // tab: Partial<TabItemProps>,
@@ -30,11 +32,47 @@ function TabsContent({ tabItems }: TabsContentProps) {
     // debugger;
     event.dataTransfer.setData("text", String(index));
     setDragging(true);
+
+    const div = document.createElement("div");
+    div.setAttribute("id", "tabs_draggable");
+    div.setAttribute(
+      "style",
+      `position: absolute;
+      width:1px;
+      background-color:var(--tabs-item-bg-color-primary);
+      border:1px solid var(--tabs-item-bg-color-primary);
+      
+      z-index:999;
+      height:${event.currentTarget.offsetHeight - 3}px;
+      top:${event.currentTarget.offsetTop}px`
+    );
+
+    document.body.appendChild(div);
+    diraggLine.current = div;
+  };
+
+  const onDragOver = (event: React.DragEvent<HTMLDivElement>) => {
+    if (!diraggLine.current) return;
+
+    if (
+      event.clientX > event.currentTarget.offsetLeft &&
+      event.clientX <
+        event.currentTarget.offsetLeft + event.currentTarget.offsetWidth / 2
+    ) {
+      diraggLine.current.style.left = event.currentTarget.offsetLeft - 1 + "px";
+    } else {
+      diraggLine.current.style.left =
+        event.currentTarget.offsetLeft +
+        event.currentTarget.offsetWidth -
+        1 +
+        "px";
+    }
   };
 
   const onDragEnd = () => {
-    // debugger;
     setDragging(false);
+    if (document.body)
+      document.body.removeChild(document.getElementById("tabs_draggable")!);
   };
 
   const onDrop = (event: React.DragEvent<HTMLDivElement>) => {
@@ -114,9 +152,13 @@ function TabsContent({ tabItems }: TabsContentProps) {
         {tabItems.map((tab, index) => {
           return (
             <div
+              onDragLeave={(e) => e.preventDefault()}
               key={"tab_" + tab.key}
               draggable-data={index}
               draggable
+              onDragOver={(event) => {
+                onDragOver(event);
+              }}
               onDragStart={(event) => {
                 onDragStart(event, index);
               }}
