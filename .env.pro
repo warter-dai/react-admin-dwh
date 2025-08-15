@@ -1,0 +1,19 @@
+# 
+VITE_APP_HOME_PATH = /react-admin-dwh
+
+# 接口前缀
+VITE_API_BASE_PATH=
+
+# 打包路径
+VITE_BASE_PATH=/
+
+# 标题
+VITE_APP_TITLE=React Admin
+
+# 页面底部内容
+VITE_APP_FOOTER_CONTENT=React Admin Dwh
+
+# 后端请求接口成功编码
+VITE_HTTP_SUCCESS_CODE=200
+# 请求超时时间
+VITE_REQUEST_TIMEOUT = 6000

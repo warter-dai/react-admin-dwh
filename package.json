@@ -14,7 +14,7 @@
     "api": "node ./api.service.cjs --mode base",
     "websocket": "node ./websocket-serve.cjs",
     "dev": "vite --mode base",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite build --mode pro",
     "lint": "eslint .",
     "preview": "vite preview"
   },

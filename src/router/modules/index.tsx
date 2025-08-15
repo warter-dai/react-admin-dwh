@@ -38,6 +38,14 @@ export const constantRouterMap: IRouteObject[] = [
         element: <RedirectRoute to="/todu/chatroom"></RedirectRoute>,
       },
       {
+        path: "/todu/game",
+        element: (
+          <LazyLoadComponent
+            Component={lazy(() => import("@/views/game/index"))}
+          />
+        ),
+      },
+      {
         path: "/todu/chatroom",
         element: (
           <LazyLoadComponent

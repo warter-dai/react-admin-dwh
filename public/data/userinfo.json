@@ -56,6 +56,12 @@
             "icon": "ant-design:container"
           },
           {
+            "label": "俄罗斯方块",
+            "key": "/todu/game",
+            "path": "/todu/game",
+            "icon": "ant-design:container"
+          },
+          {
             "label": "聊天室",
             "key": "/todu/chatroom",
             "path": "/todu/chatroom",
