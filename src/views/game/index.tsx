@@ -21,7 +21,7 @@ const Game = () => {
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  let scoreMap = 0;
+  // let scoreMap = 0;
 
   /** 等级 */
   const level = useMemo(() => {
@@ -99,8 +99,9 @@ const Game = () => {
       const rows = initFullRows();
 
       if (rows.length > 0) {
-        scoreMap += 100 * Math.pow(2, rows.length - 1);
-        setScore(scoreMap);
+        setScore(
+          (oldValue) => (oldValue += 100 * Math.pow(2, rows.length - 1))
+        );
         drawClearView(rows);
         try {
           await sleep(speed);
@@ -399,8 +400,8 @@ const Game = () => {
       setScore(0);
       return;
     }
-    scoreMap += 10;
-    setScore(scoreMap);
+    // scoreMap += 10;
+    setScore((oldval) => (oldval += 10));
 
     config.workComponent = component as any;
     config.workComponent.left =
