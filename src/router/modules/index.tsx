@@ -38,6 +38,30 @@ export const constantRouterMap: IRouteObject[] = [
         element: <RedirectRoute to="/todu/chatroom"></RedirectRoute>,
       },
       {
+        path: "/todu/video",
+        element: (
+          <LazyLoadComponent
+            Component={lazy(() => import("@/views/video/index"))}
+          />
+        ),
+      },
+      {
+        path: "/todu/video-client",
+        element: (
+          <LazyLoadComponent
+            Component={lazy(() => import("@/views/video/client"))}
+          />
+        ),
+      },
+      {
+        path: "/todu/picture",
+        element: (
+          <LazyLoadComponent
+            Component={lazy(() => import("@/views/picture/index"))}
+          />
+        ),
+      },
+      {
         path: "/todu/game",
         element: (
           <LazyLoadComponent

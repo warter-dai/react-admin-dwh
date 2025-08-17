@@ -72,6 +72,18 @@
             "key": "/todu/chatroom/1",
             "path": "/todu/chatroom/1",
             "icon": "ant-design:container"
+          },
+          {
+            "label": "视频聊天",
+            "key": "/todu/video",
+            "path": "/todu/video",
+            "icon": "ant-design:container"
+          },
+          {
+            "label": "视频聊天1",
+            "key": "/todu/video-client",
+            "path": "/todu/video-client",
+            "icon": "ant-design:container"
           }
         ]
       },
