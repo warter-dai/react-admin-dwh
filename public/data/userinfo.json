@@ -10,123 +10,276 @@
     },
     "menus": [
       {
-        "label": "关于",
-        "key": "/about1",
-        "path": "/about1",
-        "icon": "ant-design:search",
+        "label": "我的代办",
+        "key": "/workspace",
+        "path": "/workspace",
+        "icon": "ant-design:tags"
+      },
+      {
+        "label": "计划管理",
+        "key": "/plan",
+        "path": "/plan",
+        "icon": "ant-design:tags",
         "children": [
           {
-            "label": "关于1",
-            "key": "/about",
-            "path": "/about",
-            "icon": "ant-design:setting"
+            "label": "生产计划",
+            "key": "/plan/production",
+            "path": "/plan/production",
+            "icon": "ant-design:tags"
           },
           {
-            "label": "表格类页面",
-            "key": "/tabpage",
-            "path": "/tabpage",
-            "icon": "ant-design:piechart",
+            "label": "采购计划",
+            "key": "/plan/purchase",
+            "path": "/plan/purchase",
+            "icon": "ant-design:tags"
+          }
+        ]
+      },
+      {
+        "label": "采购管理",
+        "key": "/purchase",
+        "path": "/purchase",
+        "icon": "ant-design:tags",
+        "children": [
+          {
+            "label": "采购订单",
+            "key": "/purchase/order",
+            "path": "/workspace",
+            "icon": "ant-design:tags"
+          },
+          {
+            "label": "供应商管理",
+            "key": "/purchase/supplier",
+            "path": "/purchase/supplier",
+            "icon": "ant-design:tags"
+          }
+        ]
+      },
+      {
+        "label": "生产管理",
+        "key": "/production ",
+        "path": "/production",
+        "icon": "ant-design:tags",
+        "children": [
+          {
+            "label": "计划排产",
+            "key": "/production",
+            "path": "/workspace",
+            "icon": "ant-design:tags"
+          }
+        ]
+      },
+      {
+        "label": "销售管理",
+        "key": "/sale",
+        "path": "/sale",
+        "icon": "ant-design:tags",
+        "children": [
+          {
+            "label": "销售订单",
+            "key": "/sale/order",
+            "path": "/workspace",
+            "icon": "ant-design:tags"
+          },
+          {
+            "label": "客户信息管理",
+            "key": "/sale/customer",
+            "path": "/sale/customer",
+            "icon": "ant-design:tags"
+          }
+        ]
+      },
+      {
+        "label": "质量管理",
+        "key": "/quality",
+        "path": "/quality",
+        "icon": "ant-design:tags",
+        "children": [
+          {
+            "label": "采购来料质检",
+            "key": "/plan",
+            "path": "/workspace",
+            "icon": "ant-design:tags"
+          },
+          {
+            "label": "成品质检单",
+            "key": "/plan",
+            "path": "/workspace",
+            "icon": "ant-design:tags"
+          }
+        ]
+      },
+      {
+        "label": "仓库管理",
+        "key": "/warehouse",
+        "path": "/warehouse",
+        "icon": "ant-design:tags",
+        "children": [
+          {
+            "label": "仓库信息",
+            "key": "/warehouse/list",
+            "path": "/warehouse/list",
+            "icon": "ant-design:tags"
+          },
+          {
+            "label": "库存分析",
+            "key": "/warehouse/list",
+            "path": "/warehouse/list",
+            "icon": "ant-design:tags"
+          },
+          {
+            "label": "库存盘点",
+            "key": "/warehouse/list",
+            "path": "/warehouse/list",
+            "icon": "ant-design:tags"
+          },
+          {
+            "label": "入库",
+            "key": "/warehouse/push",
+            "path": "/warehouse/push",
+            "icon": "ant-design:tags"
+          },
+          {
+            "label": "出库",
+            "key": "/warehouse/pull",
+            "path": "/warehouse/pull",
+            "icon": "ant-design:tags"
+          }
+        ]
+      },
+      {
+        "label": "物流管理",
+        "key": "/logistics",
+        "path": "/logistics",
+        "icon": "ant-design:tags",
+        "children": [
+          {
+            "label": "订单管理",
+            "key": "/logistics/order",
+            "path": "/warehouse/order",
+            "icon": "ant-design:tags"
+          },
+          {
+            "label": "运输管理",
+            "key": "/warehouse/transport",
+            "path": "/warehouse/transport",
+            "icon": "ant-design:tags",
             "children": [
               {
-                "label": "基础页面",
-                "key": "/basepage",
-                "path": "/basepage",
-                "icon": "ant-design:setting"
-              },
-              {
-                "label": "列表页",
-                "key": "/listpage",
-                "path": "/listpage",
-                "icon": "ant-design:container"
+                "label": "车辆管理",
+                "key": "/warehouse/vehicle",
+                "path": "/warehouse/vehicle",
+                "icon": "ant-design:tags"
               }
             ]
           }
         ]
       },
       {
-        "label": "我的代办",
-        "key": "workspace",
-        "path": "workspace",
-        "icon": "ant-design:schedule",
+        "label": "主数据",
+        "key": "/mdm",
+        "path": "/mdm",
+        "icon": "ant-design:tags"
+      },
+      {
+        "label": "系统管理",
+        "key": "/sys",
+        "path": "/sys",
+        "icon": "ant-design:setting",
         "children": [
           {
-            "label": "工作计划",
-            "key": "/workspace",
-            "path": "/workspace",
-            "icon": "ant-design:container"
+            "label": "公司管理",
+            "key": "/sys/company",
+            "path": "/sys/company",
+            "icon": "ant-design:gold"
           },
           {
-            "label": "俄罗斯方块",
-            "key": "/todu/game",
-            "path": "/todu/game",
-            "icon": "ant-design:container"
+            "label": "部门管理",
+            "key": "/sys/department",
+            "path": "/sys/department",
+            "icon": "ant-design:apartment"
           },
           {
-            "label": "聊天室",
-            "key": "/todu/chatroom",
-            "path": "/todu/chatroom",
-            "icon": "ant-design:container"
+            "label": "角色管理",
+            "key": "/sys/role",
+            "path": "/sys/role",
+            "icon": "ant-design:team"
           },
           {
-            "label": "聊天室1",
-            "key": "/todu/chatroom/1",
-            "path": "/todu/chatroom/1",
-            "icon": "ant-design:container"
+            "label": "用户管理",
+            "key": "/sys/user",
+            "path": "/sys/user",
+            "icon": "ant-design:user"
+          },
+
+          {
+            "label": "菜单管理",
+            "key": "/sys/menu",
+            "path": "/sys/menu",
+            "icon": "ant-design:bars"
           },
           {
-            "label": "视频聊天",
-            "key": "/todu/video",
-            "path": "/todu/video",
-            "icon": "ant-design:container"
+            "label": "权限组管理",
+            "key": "/sys/permissiongroup",
+            "path": "/sys/permissiongroup",
+            "icon": "ant-design:partition"
           },
           {
-            "label": "视频聊天1",
-            "key": "/todu/video-client",
-            "path": "/todu/video-client",
-            "icon": "ant-design:container"
+            "label": "权限管理",
+            "key": "/sys/permission",
+            "path": "/sys/permission",
+            "icon": "ant-design:key"
           }
         ]
       },
       {
-        "label": "测试页",
-        "key": "page",
-        "path": "page",
+        "label": "实验性功能",
+        "key": "/laboratory",
+        "path": "/laboratory",
         "icon": "ant-design:schedule",
         "children": [
           {
-            "label": "页面1",
-            "key": "/page1",
-            "path": "/page1",
+            "label": "表格类页面",
+            "key": "/laboratory/tablepage",
+            "path": "/laboratory/tablepage",
+            "icon": "ant-design:table",
+            "children": [
+              {
+                "label": "表格类页面",
+                "key": "/laboratory/basepage",
+                "path": "/laboratory/basepage",
+                "icon": "ant-design:edit"
+              }
+            ]
+          },
+          {
+            "label": "俄罗斯方块",
+            "key": "/laboratory/game",
+            "path": "/laboratory/game",
             "icon": "ant-design:container"
           },
           {
-            "label": "页面6",
-            "key": "/page6",
-            "path": "/page6",
+            "label": "聊天室",
+            "key": "/laboratory/chatroom",
+            "path": "/laboratory/chatroom",
             "icon": "ant-design:container"
           },
           {
-            "label": "页面2",
-            "key": "/page2",
-            "path": "/page2",
+            "label": "聊天室1",
+            "key": "/laboratory/chatroom/1",
+            "path": "/laboratory/chatroom/1",
             "icon": "ant-design:container"
           },
           {
-            "label": "页面3",
-            "key": "/page3",
-            "path": "/page3",
+            "label": "视频聊天",
+            "key": "/laboratory/video",
+            "path": "/laboratory/video",
             "icon": "ant-design:container"
           },
           {
-            "label": "页面4",
-            "key": "/page4",
-            "path": "/page4",
-            "icon": "ant-design:container"
-          },
-          {
-            "label": "页面5",
-            "key": "/page5",
-            "path": "/page5",
+            "label": "视频聊天1",
+            "key": "/laboratory/video-client",
+            "path": "/laboratory/video-client",
             "icon": "ant-design:container"
           }
         ]
