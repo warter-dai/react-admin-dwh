@@ -1,16 +1,19 @@
 import useGoto from "@/hooks/useGoto";
 // import { HOME_PATH } from "@/utils/constants";
 import { Fragment, useEffect } from "react";
-import { Outlet, useParams } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 
 const Redirect = () => {
   const { go } = useGoto();
-  const { path } = useParams();
+  const { search } = useLocation();
+  // const params = useParams();
   // debugger;
   useEffect(() => {
+    const searchParams = new URLSearchParams(search);
+    const path = searchParams.get("path");
     if (!path) return;
     go("/" + path, { replace: true });
-  }, [path]);
+  }, [search]);
   return (
     <Fragment>
       <Outlet></Outlet>

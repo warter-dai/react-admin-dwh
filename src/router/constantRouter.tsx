@@ -59,17 +59,11 @@ export const constantRouter: IRouteObject[] = [
       },
       {
         path: "/redirect",
-        element: <AuthLayout />,
-        children: [
-          {
-            path: "/redirect/:path",
-            element: (
-              <LazyLoadComponent
-                Component={lazy(() => import("@/views/system/redirect"))}
-              />
-            ),
-          },
-        ],
+        element: (
+          <LazyLoadComponent
+            Component={lazy(() => import("@/views/system/redirect"))}
+          />
+        ),
       },
       {
         path: "/personal",

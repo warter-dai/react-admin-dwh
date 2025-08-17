@@ -245,7 +245,7 @@
             "icon": "ant-design:table",
             "children": [
               {
-                "label": "表格类页面",
+                "label": "基础页面",
                 "key": "/laboratory/basepage",
                 "path": "/laboratory/basepage",
                 "icon": "ant-design:edit"

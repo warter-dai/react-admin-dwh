@@ -25,9 +25,9 @@ const AppContent = () => {
         return item.key === event.key;
       });
       setActiveKey(item!.key!);
-      go("/redirect" + item?.path);
+      go("/redirect?path=" + item?.path);
     } else {
-      go("/redirect" + pathname + search);
+      go("/redirect?path=" + pathname + search);
     }
   };
 
