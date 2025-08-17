@@ -32,7 +32,8 @@ function TabItem(
     >
       <div
         data-tab-key={prop.data?.key}
-        onClick={() => {
+        onClick={(e) => {
+          e.stopPropagation();
           onActiveTab(prop.data!);
         }}
         className={
@@ -53,7 +54,9 @@ function TabItem(
         </div>
         {prop.closable && !prop.isLasTab ? (
           <div
-            onClick={() => {
+            onClick={(e) => {
+              e.stopPropagation();
+
               onRemove(prop.data!);
             }}
             className={styles["tab-item-close"]}

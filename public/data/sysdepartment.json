@@ -1,0 +1,32 @@
+{
+  "code": "200",
+  "msg": "验证已过期，请重新登录",
+  "result": {
+    "list": [
+      {
+        "companyName": "公司1",
+        "departmentName": "部门2",
+        "id": "1",
+        "departmentCode": "001"
+      },
+      {
+        "companyName": "公司1",
+        "departmentName": "部门2",
+        "id": "2",
+        "departmentCode": "002"
+      },
+      {
+        "companyName": "公司2",
+        "departmentName": "部门3",
+        "id": "3",
+        "departmentCode": "003"
+      },
+      {
+        "companyName": "公司2",
+        "departmentName": "部门4",
+        "id": "4",
+        "departmentCode": "004"
+      }
+    ]
+  }
+}

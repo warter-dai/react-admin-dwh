@@ -1,0 +1,22 @@
+.page-panel {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    gap: 3;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.page-search {
+    min-width: 300px;
+    padding: 5px;
+    background-color: var(--ant-background-container);
+}
+
+.page-table {
+    flex: 1;
+    background-color: var(--ant-background-container);
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: none;
+}

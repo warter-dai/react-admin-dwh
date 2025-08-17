@@ -59,6 +59,7 @@ function useLayoutTabs() {
 
   useEffect(() => {
     setActiveKey("");
+
     // 查找tab信息，url更新时同步路径信息
     const index = tabItems.findIndex((item) => {
       return item.key === pathname;

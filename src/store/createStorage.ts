@@ -32,6 +32,21 @@ export const createStorage = (
     }
   };
 
+  const storageGet = <T>(key: string) => {
+    const value = window[type].getItem(key);
+    if (value) {
+      const { value: val } = JSON.parse(value);
+      return val as T;
+    } else {
+      return value as T;
+    }
+  };
+
+  const storageSet = (key: string, value: any) => {
+    const valueType = getValueType(value);
+    window[type].setItem(key, JSON.stringify({ type: valueType, value }));
+  };
+
   /**
    * 获取多个缓存值
    * @param keys 缓存键
@@ -73,5 +88,7 @@ export const createStorage = (
 
     removeStorage,
     clear,
+    storageGet,
+    storageSet,
   };
 };
