@@ -15,7 +15,7 @@ export const constantRouter: IRouteObject[] = [
     children: [
       {
         index: true,
-        element: <RedirectRoute to="/workspace"></RedirectRoute>,
+        element: <RedirectRoute to="/laboratory/basepage"></RedirectRoute>,
       },
       {
         path: "/workspace",

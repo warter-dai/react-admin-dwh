@@ -97,13 +97,13 @@
         "children": [
           {
             "label": "采购来料质检",
-            "key": "/plan",
+            "key": "/quality/material",
             "path": "/workspace",
             "icon": "ant-design:tags"
           },
           {
             "label": "成品质检单",
-            "key": "/plan",
+            "key": "/quality/product",
             "path": "/workspace",
             "icon": "ant-design:tags"
           }
@@ -123,14 +123,14 @@
           },
           {
             "label": "库存分析",
-            "key": "/warehouse/list",
-            "path": "/warehouse/list",
+            "key": "/warehouse/analysis",
+            "path": "/warehouse/analysis",
             "icon": "ant-design:tags"
           },
           {
             "label": "库存盘点",
-            "key": "/warehouse/list",
-            "path": "/warehouse/list",
+            "key": "/warehouse/stocktaking",
+            "path": "/warehouse/stocktaking",
             "icon": "ant-design:tags"
           },
           {

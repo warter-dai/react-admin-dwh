@@ -42,16 +42,34 @@ function AppMenu(props: MenuProps) {
     return list;
   };
 
-  const filterMenus = (searckKey: string, menuItems: MenuItem[]) => {
+  const filterMenus = (key: string, menuItems: MenuItem[]) => {
+    const searckKey = key.trim();
     if (!searckKey) return menuItems;
     const result: MenuItem[] = [];
-    menuItems.forEach((item) => {
+    menuItems.forEach((item, i) => {
+      const labelSplit = item
+        .label!.toString()
+        .replace(searckKey, `||||${searckKey}||||`)
+        .split("||||");
+
+      const searchLabel = labelSplit.map((label) => {
+        if (label === searckKey) {
+          return (
+            <span key={"menu_label" + i} style={{ color: "red" }}>
+              {searckKey}
+            </span>
+          );
+        }
+
+        return label;
+      });
+
       if (item.label?.toString().includes(searckKey)) {
-        result.push({ ...item });
+        result.push({ ...item, label: searchLabel });
       } else if (item.children && item.children.length > 0) {
         const citem = filterMenus(searckKey, item.children);
         if (citem.length > 0) {
-          const newItem = { ...item };
+          const newItem = { ...item, label: searchLabel };
           newItem.children = [...citem];
           result.push({ ...newItem });
         }
