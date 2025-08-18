@@ -1,10 +1,19 @@
 import type { ColumnsType } from "antd/es/table";
 
 import { Button, Form, Input, Popconfirm, Space } from "antd";
+import ScmSelect from "@/views/components/Basepage/Select";
 
 function config() {
   const formItems = [
-    <Form.Item name="departmentCode" label="部门名称" key="departmentCode">
+    <Form.Item name="companyCode" label="所属公司" key="companyCode">
+      <ScmSelect
+        url="/syscompany.json"
+        labelField="companyName"
+        valueField="companyCode"
+        placeholder="所属公司"
+      />
+    </Form.Item>,
+    <Form.Item name="departmentName" label="部门名称" key="departmentName">
       <Input placeholder="部门名称" />
     </Form.Item>,
   ];

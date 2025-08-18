@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type JSX } from "react";
 
 import { Table } from "antd/lib";
 
@@ -11,6 +11,7 @@ type ITableProps = {
   selectionType?: "checkbox" | "radio";
   tableParams?: TableProps;
   dataSource: Array<any>;
+  toolbar?: JSX.Element;
 };
 
 const TablePanel = ({
@@ -22,6 +23,7 @@ const TablePanel = ({
     },
   },
   dataSource = [],
+  toolbar,
 }: ITableProps) => {
   const [rowSelection] = useState({});
   const tableRef = useRef<TableRef>(null);
@@ -33,19 +35,27 @@ const TablePanel = ({
   const initTableHeight = async (timeSpan: number = 0) => {
     clearSleep();
     await sleep(timeSpan);
+    const titleEl = tableRef.current?.nativeElement.querySelector(
+      ".ant-table-title"
+    ) as HTMLDivElement;
     const header = tableRef.current?.nativeElement.querySelector(
       ".ant-table-thead"
     ) as HTMLDivElement;
     const pagination = tableRef.current?.nativeElement.querySelector(
       ".ant-table-pagination"
     ) as HTMLDivElement;
+    const footerEl = tableRef.current?.nativeElement.querySelector(
+      "ant-table-footer"
+    ) as HTMLDivElement;
 
     let [
+      titleHeight,
+      footerHeight,
       headerHeight,
       paginationHeight,
       paginationMarginTop,
       paginationMarginBottom,
-    ] = [0, 0, 0, 0];
+    ] = [0, 0, 0, 0, 0, 0];
 
     const tableHeight =
       tableRef.current?.nativeElement.parentElement?.offsetHeight || 0;
@@ -62,9 +72,19 @@ const TablePanel = ({
       headerHeight = Number(header.offsetHeight);
     }
 
+    if (titleEl) {
+      titleHeight = Number(titleEl.offsetHeight);
+    }
+
+    if (footerEl) {
+      footerHeight = Number(footerEl.offsetHeight);
+    }
+
     const tableHScrollHeight =
       tableHeight -
       headerHeight -
+      footerHeight -
+      titleHeight -
       paginationHeight -
       paginationMarginBottom -
       paginationMarginTop;
@@ -72,7 +92,6 @@ const TablePanel = ({
     setScrollY(tableHScrollHeight);
     clearSleep();
     await sleep(timeSpan);
-    // console.log("表格高度自动计算");
   };
 
   const tablePanelHeight = useRef(0);
@@ -110,6 +129,9 @@ const TablePanel = ({
 
   return (
     <Table
+      title={() => {
+        return toolbar;
+      }}
       size="small"
       ref={tableRef}
       rowSelection={{

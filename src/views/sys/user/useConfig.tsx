@@ -1,14 +1,28 @@
 import type { ColumnsType } from "antd/es/table";
 
 import { Button, Form, Input, Popconfirm, Space } from "antd";
+import ScmSelect from "@/views/components/Basepage/Select";
 
 function config() {
   const formItems = [
     <Form.Item name="userName" label="用户名称" key="userName">
       <Input placeholder="用户名称" />
     </Form.Item>,
-    <Form.Item name="userName" label="所属部门" key="departmentCode">
-      <Input placeholder="所属部门" />
+    <Form.Item name="companyCode" label="所属公司" key="companyCode">
+      <ScmSelect
+        url="/syscompany.json"
+        labelField="companyName"
+        valueField="companyCode"
+        placeholder="所属公司"
+      />
+    </Form.Item>,
+    <Form.Item name="departmentCode" label="所属部门" key="departmentCode">
+      <ScmSelect
+        url="/sysdepartment.json"
+        labelField="departmentName"
+        valueField="departmentCode"
+        placeholder="所属部门"
+      />
     </Form.Item>,
     <Form.Item name="userName" label="手机号码" key="phone">
       <Input placeholder="手机号码" />
@@ -26,6 +40,12 @@ function config() {
       key: "userCode",
       title: "用户编码",
       dataIndex: "userCode",
+      width: "200px",
+    },
+    {
+      key: "companyName",
+      title: "所属公司",
+      dataIndex: "companyName",
       width: "200px",
     },
     {

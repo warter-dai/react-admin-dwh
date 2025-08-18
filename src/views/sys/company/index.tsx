@@ -1,6 +1,8 @@
-import BasePage from "@/views/components/Basepage/index";
+import BasePage, { type BasePageRef } from "@/views/components/Basepage/index";
 import useConfig from "./useConfig";
 import useHttpMock from "@/utils/http/useHttpMock";
+import { Button } from "antd";
+import { useRef } from "react";
 
 function SysCompany() {
   const { loadData } = useHttpMock();
@@ -11,11 +13,19 @@ function SysCompany() {
     return data.list;
   };
 
+  const basePageRef = useRef<BasePageRef<any>>(null);
+  //  basePageRef.current!.dataSource
   return (
     <BasePage
+      ref={basePageRef}
       formItems={formItems}
       columns={columns}
       loadData={onLoadData}
+      toolbar={
+        <Button size="small" onClick={() => {}}>
+          test
+        </Button>
+      }
     ></BasePage>
   );
 }
