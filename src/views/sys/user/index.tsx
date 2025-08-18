@@ -1,5 +1,23 @@
+import BasePage from "@/views/components/Basepage/index";
+import useConfig from "./useConfig";
+import useHttpMock from "@/utils/http/useHttpMock";
+
 function SysUser() {
-  return <div>用户</div>;
+  const { loadData } = useHttpMock();
+  const { formItems, columns } = useConfig();
+  const onLoadData = async () => {
+    const data = await loadData("/sysuser.json");
+
+    return data.list;
+  };
+
+  return (
+    <BasePage
+      formItems={formItems}
+      columns={columns}
+      loadData={onLoadData}
+    ></BasePage>
+  );
 }
 
 export default SysUser;

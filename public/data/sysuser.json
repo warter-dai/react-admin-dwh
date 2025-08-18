@@ -1,0 +1,40 @@
+{
+  "code": "200",
+  "msg": "验证已过期，请重新登录",
+  "result": {
+    "list": [
+      {
+        "userName": "用户1",
+        "userCode": "001",
+        "id": "1",
+        "departmentCode": "001",
+        "email": "xxxx@qq.com",
+        "phone": "13800138000"
+      },
+      {
+        "userName": "用户2",
+        "userCode": "002",
+        "id": "2",
+        "departmentCode": "002",
+        "email": "xxxx@qq.com",
+        "phone": "13800138000"
+      },
+      {
+        "userName": "用户3",
+        "userCode": "003",
+        "id": "3",
+        "departmentCode": "003",
+        "email": "xxxx@qq.com",
+        "phone": "13800138000"
+      },
+      {
+        "userName": "用户4",
+        "userCode": "004",
+        "id": "4",
+        "departmentCode": "004",
+        "email": "xxxx@qq.com",
+        "phone": "13800138000"
+      }
+    ]
+  }
+}

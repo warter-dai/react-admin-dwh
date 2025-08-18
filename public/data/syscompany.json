@@ -3,8 +3,8 @@
   "msg": "验证已过期，请重新登录",
   "result": {
     "list": [
-      { "companyName": "公司1", "id": "1", "companyCode": "001" },
-      { "companyName": "公司2", "id": "2", "companyCode": "002" }
+      { "companyName": "公司1", "key": "1", "companyCode": "001" },
+      { "companyName": "公司2", "key": "2", "companyCode": "002" }
     ]
   }
 }
