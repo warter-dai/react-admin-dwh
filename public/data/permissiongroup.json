@@ -1,0 +1,32 @@
+{
+  "code": "200",
+  "msg": "验证已过期，请重新登录",
+  "result": {
+    "list": [
+      {
+        "permissionGroupName": "权限组名称1",
+        "permissionGroupCode": "001",
+        "id": "1",
+        "permissionList": []
+      },
+      {
+        "permissionGroupName": "权限组名称2",
+        "permissionGroupCode": "002",
+        "id": "2",
+        "permissionList": []
+      },
+      {
+        "permissionGroupName": "权限组名称3",
+        "permissionGroupCode": "003",
+        "id": "3",
+        "permissionList": []
+      },
+      {
+        "permissionGroupName": "权限组名称4",
+        "permissionGroupCode": "004",
+        "id": "4",
+        "permissionList": []
+      }
+    ]
+  }
+}

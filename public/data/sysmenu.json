@@ -1,0 +1,41 @@
+{
+  "code": "200",
+  "msg": "验证已过期，请重新登录",
+  "result": {
+    "list": [
+      {
+        "menuName": "菜单1",
+        "menuCode": "001",
+        "key": "1",
+        "id": "1",
+        "children": [
+          {
+            "menuName": "菜单11",
+            "menuCode": "001"
+          }
+        ]
+      },
+      {
+        "menuName": "菜单2",
+        "menuCode": "002",
+        "key": "2",
+        "id": "2",
+        "children": []
+      },
+      {
+        "menuName": "菜单3",
+        "menuCode": "003",
+        "key": "3",
+        "id": "3",
+        "children": []
+      },
+      {
+        "menuName": "菜单4",
+        "menuCode": "004",
+        "key": "4",
+        "id": "4",
+        "children": []
+      }
+    ]
+  }
+}

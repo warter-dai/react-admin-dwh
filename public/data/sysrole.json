@@ -1,0 +1,36 @@
+{
+  "code": "200",
+  "msg": "验证已过期，请重新登录",
+  "result": {
+    "list": [
+      {
+        "roleName": "角色1",
+        "roleCode": "001",
+        "id": "1",
+        "user": [],
+        "permissiongroup": []
+      },
+      {
+        "roleName": "角色2",
+        "roleCode": "002",
+        "id": "2",
+        "user": [],
+        "permissiongroup": []
+      },
+      {
+        "roleName": "角色3",
+        "roleCode": "003",
+        "id": "3",
+        "user": [],
+        "permissiongroup": []
+      },
+      {
+        "roleName": "角色4",
+        "roleCode": "004",
+        "id": "4",
+        "user": [],
+        "permissiongroup": []
+      }
+    ]
+  }
+}
