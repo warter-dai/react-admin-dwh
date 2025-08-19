@@ -10,8 +10,9 @@ export type ScmSelectProps = SelectProps & {
 
 const ScmSelect = forwardRef((props: ScmSelectProps, ref?: any) => {
   const { loadData } = useHttpMock();
-
   const [options, setOptions] = useState<any[]>();
+
+  const { valueField, labelField, ...resProps } = props;
 
   const onLoadData = async () => {
     const data = await loadData(props.url);
@@ -19,8 +20,8 @@ const ScmSelect = forwardRef((props: ScmSelectProps, ref?: any) => {
     setOptions(
       list.map((item) => {
         return {
-          label: item[props.labelField || "value"],
-          value: item[props.valueField || "label"],
+          label: item[labelField || "value"],
+          value: item[valueField || "label"],
         };
       })
     );
@@ -31,7 +32,7 @@ const ScmSelect = forwardRef((props: ScmSelectProps, ref?: any) => {
   }, [props.url]);
 
   return (
-    <Select ref={ref} {...props} options={options || props.options}>
+    <Select ref={ref} {...resProps} options={options || props.options}>
       {props.children}
     </Select>
   );

@@ -12,6 +12,7 @@ type ITableProps = {
   tableParams?: TableProps;
   dataSource: Array<any>;
   toolbar?: JSX.Element;
+  ref: React.RefObject<TableRef | null>;
 };
 
 const TablePanel = ({
@@ -24,6 +25,7 @@ const TablePanel = ({
   },
   dataSource = [],
   toolbar,
+  ref,
 }: ITableProps) => {
   const [rowSelection] = useState({});
   const tableRef = useRef<TableRef>(null);
@@ -122,6 +124,11 @@ const TablePanel = ({
       resizeObserver.disconnect();
     };
   }, []);
+
+  useEffect(() => {
+    if (!ref) return;
+    ref.current = tableRef.current;
+  }, [tableRef]);
 
   useEffect(() => {
     initTableHeight(timer);

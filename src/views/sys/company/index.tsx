@@ -18,9 +18,8 @@ function SysCompany() {
       console.log(row);
     },
   });
-  const onLoadData = async () => {
-    const data = await loadData("/syscompany.json");
-
+  const onLoadData = async (params: any) => {
+    const data = await loadData("/syscompany.json", params);
     return data.list;
   };
 

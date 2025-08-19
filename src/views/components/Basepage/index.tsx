@@ -1,13 +1,16 @@
-import { Fragment, useEffect, useState, type JSX } from "react";
+import { Fragment, useEffect, useRef, useState, type JSX } from "react";
 import SearchPanel from "./components/SearchPanel";
 import TablePanel from "./components/TablePanel";
 import Toolbar from "./components/Toolbar";
 import styles from "./index.module.css";
-import type { ColumnsType } from "antd/es/table";
+import type { ColumnsType, TableRef } from "antd/es/table";
 import { BasePageContext } from "./useBasePageContext";
+import type { FormInstance } from "antd";
 
 export type BasePageRef<T> = {
   dataSource: Array<T>;
+  tablePanelRef: React.RefObject<TableRef | null>;
+  searchPanelRef: React.RefObject<FormInstance | null>;
 };
 
 export type BasePageProps = {
@@ -15,24 +18,29 @@ export type BasePageProps = {
   formItems: any[];
   columns: ColumnsType<any>;
   toolbar?: JSX.Element;
-  loadData: () => Promise<any[]>;
+  loadData: <T>(searchParams?: T) => Promise<any[]>;
   dataSource?: Record<string, any>[];
   ref?: React.RefObject<BasePageRef<any> | null>;
   onDataSourceUpdate?: <T>(data: Array<T>) => void;
 };
 
 const BasePage = (props: BasePageProps) => {
+  const [dataSource, setDataSource] = useState(props.dataSource);
+  const searchPanelRef = useRef<FormInstance>(null);
+  const tablePanelRef = useRef<TableRef>(null);
+
   const onSearch = () => {
     loadData();
   };
 
   const onAddRow = () => {
-    props.onDataSourceUpdate!([
+    const key = new Date().getTime();
+    setDataSource([
       {
-        id: props.dataSource!.length + 1,
-        key: props.dataSource!.length + 1,
+        id: key,
+        key: key,
       },
-      ...props.dataSource!,
+      ...dataSource!,
     ]);
   };
 
@@ -40,32 +48,37 @@ const BasePage = (props: BasePageProps) => {
     console.log("导出");
   };
 
-  // const [dataSource, setDataSource] = useState<Record<string, any>[]>([]);
-
-  useEffect(() => {
-    if (!props.ref) return;
-    props.ref.current = {
-      dataSource: props.dataSource!,
-    };
-  }, [props.ref]);
-
-  // useEffect(() => {
-  //   setDataSource(props.dataSource!);
-  // }, [props.dataSource]);
-
-  const loadData = async () => {
-    const data: Array<any> = await props.loadData();
-    if (props.onDataSourceUpdate) {
-      props.onDataSourceUpdate(data);
-    }
-  };
-
-  const [collapsed, setCollapsed] = useState(false);
-
   useEffect(() => {
     if (props.defaultLoad === false) return;
     loadData();
   }, []);
+
+  useEffect(() => {
+    setDataSource(props.dataSource!);
+  }, [props.dataSource]);
+
+  useEffect(() => {
+    if (props.onDataSourceUpdate && dataSource)
+      props.onDataSourceUpdate(dataSource);
+  }, [dataSource]);
+
+  useEffect(() => {
+    if (props.ref) {
+      props.ref.current = {
+        dataSource: dataSource!,
+        tablePanelRef: tablePanelRef,
+        searchPanelRef: searchPanelRef,
+      };
+    }
+  }, [dataSource, tablePanelRef, searchPanelRef]);
+
+  const loadData = async () => {
+    const param = searchPanelRef.current?.getFieldsValue();
+    const data: Array<any> = await props.loadData(param);
+    setDataSource(data);
+  };
+
+  const [collapsed, setCollapsed] = useState(false);
 
   return (
     <BasePageContext.Provider
@@ -79,6 +92,7 @@ const BasePage = (props: BasePageProps) => {
       <div className={styles["page-panel"]}>
         <div className={styles["page-search"]}>
           <SearchPanel
+            ref={searchPanelRef}
             fields={props.formItems}
             onSearch={() => {
               onSearch();
@@ -91,6 +105,7 @@ const BasePage = (props: BasePageProps) => {
 
         <div className={styles["page-table"]}>
           <TablePanel
+            ref={tablePanelRef}
             toolbar={
               <Fragment>
                 <Toolbar onAddRow={onAddRow} onExport={onExport}>
@@ -99,7 +114,7 @@ const BasePage = (props: BasePageProps) => {
               </Fragment>
             }
             columns={props.columns}
-            dataSource={props.dataSource || []}
+            dataSource={dataSource || []}
           ></TablePanel>
         </div>
       </div>

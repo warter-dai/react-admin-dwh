@@ -10,7 +10,7 @@
     },
     "menus": [
       {
-        "label": "我的代办",
+        "label": "工作台",
         "key": "/workspace",
         "path": "/workspace",
         "icon": "ant-design:tags"

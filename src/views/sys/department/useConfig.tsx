@@ -3,7 +3,12 @@ import type { ColumnsType } from "antd/es/table";
 import { Button, Form, Input, Popconfirm, Space } from "antd";
 import ScmSelect from "@/views/components/Basepage/Select";
 
-function config() {
+type ConfigProps = {
+  onDeleteRow: (row: any) => Promise<void> | void;
+  onEdit: (row: any) => Promise<void> | void;
+};
+
+function config({ onDeleteRow, onEdit }: ConfigProps) {
   const formItems = [
     <Form.Item name="companyCode" label="所属公司" key="companyCode">
       <ScmSelect
@@ -64,14 +69,6 @@ function config() {
       ),
     },
   ];
-
-  const onEdit = (row: any) => {
-    console.log(row);
-  };
-
-  const onDeleteRow = (row: any) => {
-    console.log(row);
-  };
 
   return {
     formItems,

@@ -5,12 +5,13 @@ import { PUBLIC_PATH } from "../constants";
 function useHttpMock() {
   const storage = createStorage("localStorage");
 
-  const loadData = async (url: string) => {
+  const loadData = async (url: string, parasm?: Record<string, any>) => {
     const data = storage.storageGet<string>(url);
     if (data) {
       return JSON.parse(data);
     }
     return await request(`${PUBLIC_PATH + "/data" + url}`, {
+      params: parasm,
       headers: {
         "Content-Type": "text/plain",
       },
