@@ -16,7 +16,9 @@ export type BasePageProps = {
   columns: ColumnsType<any>;
   toolbar?: JSX.Element;
   loadData: () => Promise<any[]>;
+  dataSource?: Record<string, any>[];
   ref?: React.RefObject<BasePageRef<any> | null>;
+  onDataSourceUpdate?: <T>(data: Array<T>) => void;
 };
 
 const BasePage = (props: BasePageProps) => {
@@ -25,9 +27,12 @@ const BasePage = (props: BasePageProps) => {
   };
 
   const onAddRow = () => {
-    setDataSource([
-      { id: dataSource.length + 1, key: dataSource.length + 1 },
-      ...dataSource,
+    props.onDataSourceUpdate!([
+      {
+        id: props.dataSource!.length + 1,
+        key: props.dataSource!.length + 1,
+      },
+      ...props.dataSource!,
     ]);
   };
 
@@ -35,18 +40,24 @@ const BasePage = (props: BasePageProps) => {
     console.log("导出");
   };
 
-  const [dataSource, setDataSource] = useState<Record<string, any>[]>([]);
+  // const [dataSource, setDataSource] = useState<Record<string, any>[]>([]);
 
   useEffect(() => {
     if (!props.ref) return;
     props.ref.current = {
-      dataSource: dataSource,
+      dataSource: props.dataSource!,
     };
   }, [props.ref]);
 
+  // useEffect(() => {
+  //   setDataSource(props.dataSource!);
+  // }, [props.dataSource]);
+
   const loadData = async () => {
-    const data = await props.loadData();
-    setDataSource(data);
+    const data: Array<any> = await props.loadData();
+    if (props.onDataSourceUpdate) {
+      props.onDataSourceUpdate(data);
+    }
   };
 
   const [collapsed, setCollapsed] = useState(false);
@@ -56,9 +67,6 @@ const BasePage = (props: BasePageProps) => {
     loadData();
   }, []);
 
-  useEffect(() => {
-    setDataSource(dataSource);
-  }, [dataSource]);
   return (
     <BasePageContext.Provider
       value={{
@@ -76,7 +84,7 @@ const BasePage = (props: BasePageProps) => {
               onSearch();
             }}
             onReset={() => {
-              setDataSource([]);
+              props.onDataSourceUpdate!([]);
             }}
           ></SearchPanel>
         </div>
@@ -91,7 +99,7 @@ const BasePage = (props: BasePageProps) => {
               </Fragment>
             }
             columns={props.columns}
-            dataSource={dataSource}
+            dataSource={props.dataSource || []}
           ></TablePanel>
         </div>
       </div>

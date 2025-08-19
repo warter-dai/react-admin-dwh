@@ -18,6 +18,13 @@ function Desktop() {
         x: "left",
         y: "center",
       },
+      emphasis: {
+        label: {
+          show: true,
+          fontSize: 30,
+          fontWeight: "bold",
+        },
+      },
       series: [
         {
           name: "",
@@ -175,7 +182,7 @@ function Desktop() {
             <label>工作分布图</label>
           </div>
           <div className={styles["content"]}>
-            <div style={{ height: "100%" }} ref={echartsRef}></div>
+            <div style={{ height: "90%", width: "90%" }} ref={echartsRef}></div>
           </div>
         </div>
       </div>
@@ -185,7 +192,7 @@ function Desktop() {
           className={styles["desktop-block"] + " flex-1 "}
         >
           <div className={styles["title"]}>
-            <label>我的代办</label>
+            <label>区域1</label>
           </div>
           <div className={styles["content"]}></div>
         </div>
@@ -196,7 +203,7 @@ function Desktop() {
           className={styles["desktop-block"] + " flex-1 "}
         >
           <div className={styles["title"]}>
-            <label>我的代办</label>
+            <label>区域2</label>
           </div>
           <div className={styles["content"]}></div>
         </div>
@@ -205,7 +212,7 @@ function Desktop() {
           className={styles["desktop-block"] + " flex-1 "}
         >
           <div className={styles["title"]}>
-            <label>我的代办</label>
+            <label>区域2</label>
           </div>
           <div className={styles["content"]}></div>
         </div>
@@ -214,7 +221,7 @@ function Desktop() {
           className={styles["desktop-block"] + " flex-1 "}
         >
           <div className={styles["title"]}>
-            <label>我的代办</label>
+            <label>区域2</label>
           </div>
           <div className={styles["content"]}></div>
         </div>

@@ -1,7 +1,12 @@
 import { Button, Form, Input, Popconfirm, Space } from "antd";
 import type { ColumnsType } from "antd/es/table";
 
-function config() {
+type ConfigProps = {
+  onDeleteRow: (row: any) => Promise<void> | void;
+  onEdit: (row: any) => Promise<void> | void;
+};
+
+function config({ onDeleteRow, onEdit }: ConfigProps) {
   const formItems = [
     <Form.Item name="companyName" label="公司名称" key="companyName">
       <Input placeholder="公司名称" />
@@ -42,14 +47,6 @@ function config() {
       ),
     },
   ];
-
-  const onEdit = (row: any) => {
-    console.log(row);
-  };
-
-  const onDeleteRow = (row: any) => {
-    console.log(row);
-  };
 
   return {
     formItems,
