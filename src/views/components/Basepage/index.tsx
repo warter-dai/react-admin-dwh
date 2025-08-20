@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useRef, useState, type JSX } from "react";
-import SearchPanel from "./components/SearchPanel";
+import SearchPanel from "./components/searchPanel";
 import TablePanel from "./components/TablePanel";
 import Toolbar from "./components/Toolbar";
 import styles from "./index.module.css";
