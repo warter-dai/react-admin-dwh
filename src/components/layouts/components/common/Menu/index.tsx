@@ -21,7 +21,7 @@ export type MenuProps = {
 
 function AppMenu(props: MenuProps) {
   const { items, openKeys, activeKey } = menuStore();
-  const { onItemClick, onOpenChange } = useLayoutMenu();
+  const { onItemClick, onOpenChange, menuRef } = useLayoutMenu();
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [defaultMenuItems, setDefaultMenuItems] = useState<MenuItem[]>([]);
 
@@ -96,6 +96,7 @@ function AppMenu(props: MenuProps) {
   return (
     <Fragment>
       <Menu
+        ref={menuRef}
         theme={props.theme}
         className="overflow-y-auto flex-1 h-full"
         mode="inline"

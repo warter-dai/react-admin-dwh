@@ -6,6 +6,7 @@ import styles from "./index.module.css";
 import type { ColumnsType, TableRef } from "antd/es/table";
 import { BasePageContext } from "./useBasePageContext";
 import type { FormInstance } from "antd";
+import { useSleep } from "@/hooks/useSleep";
 
 export type BasePageRef<T> = {
   dataSource: Array<T>;
@@ -28,7 +29,8 @@ const BasePage = (props: BasePageProps) => {
   const [dataSource, setDataSource] = useState(props.dataSource);
   const searchPanelRef = useRef<FormInstance>(null);
   const tablePanelRef = useRef<TableRef>(null);
-
+  const [loading, setLoading] = useState(false);
+  const { sleep } = useSleep();
   const onSearch = () => {
     loadData();
   };
@@ -74,8 +76,14 @@ const BasePage = (props: BasePageProps) => {
 
   const loadData = async () => {
     const param = searchPanelRef.current?.getFieldsValue();
-    const data: Array<any> = await props.loadData(param);
-    setDataSource(data);
+    try {
+      setLoading(true);
+      await sleep(100);
+      const data: Array<any> = await props.loadData(param);
+      setDataSource(data);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const [collapsed, setCollapsed] = useState(false);
@@ -106,6 +114,7 @@ const BasePage = (props: BasePageProps) => {
         <div className={styles["page-table"]}>
           <TablePanel
             ref={tablePanelRef}
+            loading={loading}
             toolbar={
               <Fragment>
                 <Toolbar onAddRow={onAddRow} onExport={onExport}>

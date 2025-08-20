@@ -1,14 +1,20 @@
+import { useSleep } from "@/hooks/useSleep";
 import menuStore from "@/store/menuStore";
 import _tabsStore from "@/store/tabsStore";
-import { useEffect } from "react";
+import type { MenuRef } from "antd";
+import { useEffect, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 function useLayoutMenu() {
   const navigate = useNavigate();
   const location = useLocation();
+  const { sleep, clearSleep } = useSleep();
+  const sleepSpan = 300;
 
-  const { items, setOpenKeys, setActiveKey } = menuStore();
+  const { items, setOpenKeys, setActiveKey, activeKey } = menuStore();
   const tabsStore = _tabsStore();
+
+  const menuRef = useRef<MenuRef>(null);
 
   // 查找激活对象
   const findMenuItem = (key: string, items: RouteMenuItem[]) => {
@@ -57,6 +63,52 @@ function useLayoutMenu() {
     setOpenKeys(keys);
   };
 
+  const getOpenKey = (searchKey: string, menus: RouteMenuItem[]) => {
+    let openKeys: string[] = [];
+    menus.forEach((menu) => {
+      if (menu.key === searchKey || menu.path === searchKey) {
+        openKeys.push(menu.key.toString() ?? menu.path);
+        return;
+      }
+
+      if (menu.children) {
+        const keys = getOpenKey(searchKey, menu.children);
+        if (keys.length > 0) {
+          keys.unshift(menu.key.toString() ?? menu.path);
+          openKeys = keys;
+        }
+      }
+    });
+
+    return openKeys;
+  };
+
+  const scrollToActiveIntoView = async () => {
+    const targetTab = menuRef.current?.menu?.list.querySelector(
+      `li[path="${activeKey}"]`
+    ) as HTMLElement | null;
+    if (targetTab) {
+      // 取消上次未完成的任务
+      clearSleep();
+      await sleep(sleepSpan);
+      targetTab.scrollIntoView({
+        behavior: "smooth",
+        inline: "nearest",
+      });
+      // await sleep(sleepSpan);
+    }
+  };
+
+  useEffect(() => {
+    sleep(sleepSpan).then(() => {
+      scrollToActiveIntoView();
+    });
+  }, []);
+
+  useEffect(() => {
+    scrollToActiveIntoView();
+  }, [activeKey]);
+
   // 处理路由变化，更新菜单状态
   useEffect(() => {
     if (!items?.length) return;
@@ -64,12 +116,19 @@ function useLayoutMenu() {
     const currentPath = location.pathname;
 
     setActiveKey(currentPath);
+
+    // 激活菜单自动打开
+    const keys = getOpenKey(location.pathname, items);
+    if (keys && keys.length > 0) {
+      setOpenKeys(keys);
+    }
   }, [location.pathname, items]);
 
   return {
     onItemClick,
     onOpenChange,
     findMenuItem,
+    menuRef,
   };
 }
 

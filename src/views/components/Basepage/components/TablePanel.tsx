@@ -13,6 +13,7 @@ type ITableProps = {
   dataSource: Array<any>;
   toolbar?: JSX.Element;
   ref: React.RefObject<TableRef | null>;
+  loading: boolean;
 };
 
 const TablePanel = ({
@@ -26,6 +27,7 @@ const TablePanel = ({
   dataSource = [],
   toolbar,
   ref,
+  loading,
 }: ITableProps) => {
   const [rowSelection] = useState({});
   const tableRef = useRef<TableRef>(null);
@@ -139,6 +141,7 @@ const TablePanel = ({
       title={() => {
         return toolbar;
       }}
+      loading={loading}
       size="small"
       ref={tableRef}
       rowSelection={{
