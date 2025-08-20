@@ -1,3 +1,12 @@
+# 环境
+VITE_NODE_ENV=development
+
+# 端口号
+VITE_APP_PORT=8082
+
+# 启动路径
+VITE_PUBLIC_PATH=/
+
 # 
 VITE_APP_HOME_PATH = /
 
@@ -17,3 +26,5 @@ VITE_APP_FOOTER_CONTENT=React Admin Dwh
 VITE_HTTP_SUCCESS_CODE=200
 # 请求超时时间
 VITE_REQUEST_TIMEOUT = 6000
+
+

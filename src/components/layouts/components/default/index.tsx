@@ -13,15 +13,17 @@ import { Fragment, useEffect, useState } from "react";
 import Logo from "../common/Logo";
 import AppMenu from "../common/Menu";
 import { useSleep } from "@/hooks/useSleep";
-import { request } from "@/utils/http";
+// import { request } from "@/utils/http";
 import useMenuStore from "@/store/menuStore";
 import useUserStore from "@/store/userStore";
+import useHttpMock from "@/utils/http/useHttpMock";
 
 function DefaultLayout() {
   const { Sider } = Layout;
   const { theme, siderWidth } = useGlobalContext();
   const [collapsed, setCollapsed] = useState(false);
   const [searchKey, setSearchKey] = useState("");
+  const { loadData } = useHttpMock();
 
   const { setItems } = useMenuStore();
   const { setUserInfo } = useUserStore();
@@ -30,8 +32,8 @@ function DefaultLayout() {
   };
 
   const loadUserInfo = async () => {
-    const userinfo: { menus: any[]; userInfo: any } = await request(
-      "/react-admin-dwh/data/userinfo.json",
+    const userinfo: { menus: any[]; userInfo: any } = await loadData(
+      "/userinfo.json",
       {
         headers: {
           "Content-Type": "text/plain",
