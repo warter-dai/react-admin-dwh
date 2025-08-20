@@ -1,5 +1,5 @@
 # 
-VITE_APP_HOME_PATH = /react-admin-dwh
+VITE_APP_HOME_PATH = /
 
 # 接口前缀
 VITE_API_BASE_PATH=
